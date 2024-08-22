@@ -23,6 +23,7 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 
+
 const products = [
     { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
     { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
@@ -39,12 +40,12 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="bg-blue-950">
-            <nav aria-label="Global" className="mx-auto flex max-w-screen-2xl items-center justify-between p-4 lg:px-8">
+        <header className="bg-blue-950 fixed top-0  w-full z-50">
+            <nav aria-label="Global" className=" mx-auto flex max-w-screen-2xl items-center justify-between p-4 lg:px-8">
                 <div className="flex lg:flex-1">
                     <Link href="#" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
-                        <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto" />
+                        <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8" />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
@@ -86,6 +87,8 @@ export default function Navbar() {
                                 src="https://tailwindui.com/img/logos/mark.svg?
                                 color=indigo&shade=600"
                                 className="h-8 w-auto"
+                                width="32"
+                                height="32"
                             />
                         </Link>
                         <button
@@ -102,19 +105,19 @@ export default function Navbar() {
                             <div className="space-y-2 py-6">
                                 <Link
                                     href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-100/30"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-500/30"
                                 >
                                     Features
                                 </Link>
                                 <Link
                                     href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-100/30"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-500/30"
                                 >
                                     Marketplace
                                 </Link>
                                 <Link
                                     href="#"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-100/30"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-500/30"
                                 >
                                     Company
                                 </Link>

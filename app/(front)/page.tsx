@@ -1,13 +1,16 @@
-import Hero from "@/components/frontend/Hero";
-import MegaMenu from "@/components/frontend/MegaMenu";
+import DoctorsList from "@/components/DoctorsList";
+import Brands from "@/components/Frontend/Brands";
+import Hero from "@/components/Frontend/Hero";
+import TabbendSection from "@/components/Frontend/TabbendSection";
 
 export default function Home() {
   return (
-    <section className="bg-blue-950 border-t-[1px] border-gray-600">
-      <div className=" max-w-5xl flex mx-auto p-6">
-      <MegaMenu />
-      </div>
+    <section className="">
       <Hero />
+      <Brands />
+      <TabbendSection />
+      <DoctorsList className="bg-white py-8 lg:py-24" title="TeleHealth visit" isInPreson = {false}/>
+      <DoctorsList className="bg-white py-8 lg:py-24" title="In-preson dortor visit" isInPreson = {true}/>
     </section>
   );
 }

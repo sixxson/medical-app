@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Seachbar from "./Seachbar";
-import TransitionText from "./TransitionText";
 import { LinkIcon } from "@heroicons/react/20/solid";
+import TransitionText from "./TransitionText";
+import Seachbar from "./Seachbar";
 
 const Hero = () => { 
   const TEXTS = ["Acupuncture", "Massage", "Chiropractic", "Physiotherapy", "Naturopathy", "Dental",
@@ -73,7 +73,7 @@ const Hero = () => {
             <div className="hidden px-4 lg:block lg:w-1/12"></div>
             <div className="w-full px-4 lg:w-5/12">
               <div className="lg:ml-auto lg:text-right">
-                <div className="relative z-10 inline-block pt-11 lg:pt-0">
+                <div className="relative z-[9] inline-block pt-11 lg:pt-0">
                   <img
                     src="https://cdn.tailgrids.com/1.0/assets/images/hero/hero-image-01.png"
                     alt="hero"

@@ -161,7 +161,7 @@ const megaMenu = [
 export default function MegaMenu() {
   return (
     <NavigationMenu>
-      <NavigationMenuList className="space-x-4">
+      <NavigationMenuList className=" space-x-4">
         {megaMenu.map((item, index) => {
             return( 
             <NavigationMenuItem key={index}>
@@ -169,7 +169,8 @@ export default function MegaMenu() {
                 {item.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <ul className="grid w-[300px] gap-3 p-4 md:w-[400px] md:grid-cols-2 
+                lg:w-[600px] overflow-y-scroll md:overflow-auto h-[300px] md:h-auto">
                   {item.services.map((component) => (
                     <ListItem
                       key={component.title}
