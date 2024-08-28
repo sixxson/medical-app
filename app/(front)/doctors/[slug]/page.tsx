@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function page() {
   return (
-    <div className='bg-slate-50 min-h-screen'>
+    <div className='bg-slate-50 min-h-screen pt-5'>
       <div className="bg-white shadow-xl rounded-md max-w-4xl border 
       border-gray-200 mx-auto ">
         <div className="py-8 px-6">

@@ -89,7 +89,8 @@ export default function DoctorCard({
                             rounded-md bg-purple-700 text-sm hover:bg-purple-800"
                                 href="/doctors/slug"
                                 key={index}>
-                                {item.time} {item.period}
+                                {item.time}
+                                {item.period}
                             </Link>
                         ))}
                         <Link

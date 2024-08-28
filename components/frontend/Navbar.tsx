@@ -40,8 +40,8 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="bg-blue-950 fixed top-0  w-full z-50">
-            <nav aria-label="Global" className=" mx-auto flex max-w-screen-2xl items-center justify-between p-4 lg:px-8">
+        <header className="bg-blue-950 fixed top-0 w-full z-50 py-4">
+            <nav aria-label="Global" className=" mx-auto flex max-w-screen-2xl items-center justify-between  px-4 py-2 lg:px-8">
                 <div className="flex lg:flex-1">
                     <Link href="#" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
@@ -70,7 +70,7 @@ export default function Navbar() {
                     </Link>
                 </PopoverGroup>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <Link href="#" className="text-sm font-semibold leading-6 text-gray-50 bg-blue-700 py-3 px-6 rounded-md ">
+                    <Link href="/login" className="text-sm font-semibold leading-6 text-gray-50 bg-blue-700 py-3 px-6 rounded-md ">
                         Log in <span aria-hidden="true">&rarr;</span>
                     </Link>
                 </div>
@@ -124,7 +124,7 @@ export default function Navbar() {
                             </div>
                             <div className="py-6">
                                 <Link
-                                    href="#"
+                                    href="/login"
                                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-50 hover:bg-gray-100/30"
                                 >
                                     Log in

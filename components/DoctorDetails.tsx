@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react'
+import Availability from './Availability'
 
 export default function DoctorDetails() {
 
@@ -15,7 +16,7 @@ export default function DoctorDetails() {
               ? 'py-4 px-8 w-full bg-blue-500 text-white uppercase tracking-widest'
               : 'py-4 px-8 w-full bg-slate-200 text-slate-800'
           }>
-          Service Deta ils
+          Service Details
         </button>
         <button
           onClick={() => setIsActive("availability")}
@@ -30,7 +31,7 @@ export default function DoctorDetails() {
       <div className="py-8 px-6">
         {isActive === 'availability' ? (
           <div>
-            Availability Component
+            <Availability />
           </div>
         ) : (
           <div>

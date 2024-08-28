@@ -5,7 +5,7 @@ import TabbendSection from "@/components/Frontend/TabbendSection";
 
 export default function Home() {
   return (
-    <section className="">
+    <section className="mt-5">
       <Hero />
       <Brands />
       <TabbendSection />
