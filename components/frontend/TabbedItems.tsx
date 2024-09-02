@@ -2,7 +2,7 @@
 import { Tabs } from "flowbite-react";
 import { Activity, ListOrdered, Microscope, Stethoscope, Syringe } from "lucide-react";
 import ServiceList from "./Services/ServiceList";
-import ListCard from "./Doctor/ListCard";
+import ListCard from "./Doctor/LinkCard";
 
 
 export default function TabbedItems() {
@@ -14,7 +14,7 @@ export default function TabbedItems() {
       slug:"telehealth",
     },
   {
-      title: "Video prescription",
+      title: "Virtual care",
       image: "/Something.jpg",
       slug:"telehealth",
     },
@@ -55,7 +55,7 @@ export default function TabbedItems() {
     {
       component: <ListCard className="bg-blue-900 " />,
       title: "Doctors",
-      icon:Microscope, // Replace "" with the appropriate React icon component
+      icon:Microscope, 
       content: []
     },
     {
@@ -67,7 +67,7 @@ export default function TabbedItems() {
     {
       component: <ListCard className="bg-pink-900 " />,
       title: "Symptoms",
-      icon:Syringe, // Replace "" with the appropriate React icon component
+      icon: Syringe, // Replace "" with the appropriate React icon component
       content: []
     },
     {

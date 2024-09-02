@@ -1,3 +1,4 @@
+import Footer from '@/components/Frontend/Footer'
 import MegaMenu from '@/components/Frontend/MegaMenu'
 import Navbar from '@/components/Frontend/Navbar'
 import React from 'react'
@@ -14,9 +15,10 @@ export default function Layout(
             w-full md:px-60">
                 <MegaMenu />
             </div> */}
-            <div className="mt-[80px]">
+            <div className="mt-[95px] ">
             {children}
             </div>
+            <Footer />
         </div>
     )
 }
