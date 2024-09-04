@@ -1,5 +1,6 @@
 import CustomButton from '@/components/CustomButton'
 import { CustomAccordion, FAQItem } from '@/components/Frontend/CustomAccordion'
+import Pricing from '@/components/Frontend/Pricing'
 import { link } from 'fs'
 import { Check } from 'lucide-react'
 import Image from 'next/image'
@@ -58,9 +59,11 @@ export default function page() {
   const faqs : FAQItem[] = [
   {
     qn: 'How do I sign up for Medical App?',
-    aws: `You can sign up for Medical App by visiting our website and clicking on the “Join Medical App” button. 
-    You will be asked to provide some basic information about yourself and your practice. 
-    Once you have completed the sign-up process, you will be able to create your profile and start seeing patients.`
+    aws: <div>
+      You can sign up for Medical App by visiting our website and clicking on the 
+      <CustomButton title='Signup' href="register?role='DOCTOR'" className='bg-blue-600 hover:bg-blue-700' /> button. 
+      You will be asked to provide some basic information about yourself and your practice. 
+    </div>
   },
   {
     qn: 'Can I use the Medical App on multiple devices??',
@@ -125,7 +128,7 @@ export default function page() {
             className='w-full rounded' />
         </div>
       </section>
-      <section className='px-4 py-12'>
+      <section className='px-4 py-20'>
         <div className='max-w-6xl mx-auto gap-3 grid grid-cols-1 md:grid-cols-2'>
           <Image
             src='/JettValorant.jpg'
@@ -135,9 +138,10 @@ export default function page() {
             className='w-full object-cover rounded hidden md:block ' />
           <div className=''>
             <h2 className='md:text-4xl text-2xl'>
-              Build a thriving <span className='text-blue-600 font-semibold'> direct-pay </span>   practice with Medical App.
+              Join Sesame to increase your 
+              <span className='text-blue-600 font-semibold'> revenue</span> today.
             </h2>
-            <div className='py-4'>
+            {/* <div className='py-4'>
               {
                 steps.map((step, i) => {
                   return (
@@ -147,7 +151,7 @@ export default function page() {
                     </p>
                   )
                 })}
-            </div>
+            </div> */}
             <div className="grid grid-cols-2 gap-4">
               {
                 cards.map((card, i) => {
@@ -170,6 +174,9 @@ export default function page() {
             </div>
           </div>
         </div>
+      </section>
+      <section className='px-4 py-12'>
+        <Pricing />
       </section>
       <section className='px-4 py-12'>
         <div className='max-w-6xl mx-auto gap-4'>
