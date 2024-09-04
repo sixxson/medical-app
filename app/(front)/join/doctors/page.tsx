@@ -1,7 +1,6 @@
 import CustomButton from '@/components/CustomButton'
 import { CustomAccordion, FAQItem } from '@/components/Frontend/CustomAccordion'
 import Pricing from '@/components/Frontend/Pricing'
-import { link } from 'fs'
 import { Check } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
