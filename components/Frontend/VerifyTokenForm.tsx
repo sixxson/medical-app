@@ -25,6 +25,8 @@ import {
     InputOTPSeparator,
     InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Sub } from "@radix-ui/react-dropdown-menu";
+import SubmitButton from "../FormInput/SubmitButton";
 
 const FormSchema = z.object({
     token: z.string().min(6, {
@@ -107,7 +109,11 @@ export default function VerifyTokenForm({
                     )}
                 />
 
-                <Button type="submit">Submit</Button>
+                <SubmitButton
+                    title="Submit to Verify"
+                    isLoading={loading} 
+                    loadingTitle="Verifying please wait..."
+                    />
             </form>
         </Form>
     );

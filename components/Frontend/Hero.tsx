@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import TransitionText from "./TransitionText";
 import Seachbar from "./Seachbar";
+import { CommandMenu } from "../command-menu";
 
-const Hero = () => { 
+const Hero = () => {
   const TEXTS = ["Acupuncture", "Massage", "Chiropractic", "Physiotherapy", "Naturopathy", "Dental",
-    "Cosmetic", "Dietitian", "Speech Therapist", "Occupational Therapist", "Acupuncturist"
-  ]; 
+    "Cosmetic", "Dietitian", "Acupuncturist"
+  ];
   return (
     <div className="bg-blue-950">
       <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-7xl mx-auto">
@@ -14,21 +15,24 @@ const Hero = () => {
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-6/12">
               <div className="hero-content">
-                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] text-white 
-                sm:text-[42px] lg:text-[40px] xl:text-5xl flex flex-wrap items-center gap-3">
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                   <span>Book your</span>
                   <TransitionText className="text-fuchsia-500" TEXTS={TEXTS} />
+                  <br />
                   <span>sesstion now</span>
                 </h1>
                 <p className="mb-8 max-w-[480px] text-base text-body-color text-white">
-                  Health shouldnt be a puzzle, we are cutting 
-                  through the B.S to bring you simple, Affordable, and 
+                  Health shouldnt be a puzzle, we are cutting
+                  through the B.S to bring you simple, Affordable, and
                   transparent healthcare.
                 </p>
                 {/* SREACH BAR */}
-                <Seachbar />
+                {/* <Seachbar /> */}
+                <div className="w-full flex-1 md:flex-none">
+                  <CommandMenu />
+                </div>
                 {/* CTA BTNS */}
-                <ul className="flex flex-wrap items-center mt-2">
+                <ul className="flex flex-wrap items-center mt-5">
                   <li>
                     <a
                       href="/#"
@@ -36,7 +40,7 @@ const Hero = () => {
                       px-6 py-3 text-center bg-blue-600 text-base 
                       font-medium text-white hover:bg-blue-700 lg:px-7"
                     >
-                    Need Doctor Urgently
+                      Need Doctor Urgently
                     </a>
                   </li>
                   <li className="mx-3">
@@ -126,7 +130,7 @@ const Hero = () => {
 
 export default Hero;
 
-const SingleImage = ({ href, imgSrc }:{href:string, imgSrc:string}) => {
+const SingleImage = ({ href, imgSrc }: { href: string, imgSrc: string }) => {
   return (
     <>
       <a href={href} className="flex w-full items-center justify-center">

@@ -1,37 +1,53 @@
 import React from 'react'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import Link from 'next/link'
 
 type TextInputProps = {
     label: string,
     register: any,
     name: string,
     errors: any,
-    type: string
-    placeholder:string
+    type?: string
+    placeholder: string
+    page?: string
 }
 
-export default function TextInput({ 
-    label, 
+export default function TextInput({
+    label,
     register,
     name,
     errors,
     type,
-    placeholder
+    placeholder,
+    page
 }: TextInputProps) {
     return (
-        <div>
-            <label 
-            htmlFor={`${name}`} 
-            className="block text-sm font-medium leading-6 text-gray-900">
-                {label}
-            </label>
+        <div className='grid gap-2'>
+            {type === 'password' && page === 'login'
+                ? (
+                    <div className="flex items-center">
+                        <Label htmlFor="password">Password</Label>
+                        <Link
+                            href="/forgot-password"
+                            className="ml-auto inline-block text-sm underline"
+                        >
+                            Forgot your password?
+                        </Link>
+                    </div>
+                ) : (
+                    <Label htmlFor={`${name}`} >
+                        {label}
+                    </Label>
+                )}
+
             <div className="mt-2">
-                <input
+                <Input
                     {...register(`${name}`, { required: true })}
                     id={`${name}`}
                     name={`${name}`}
                     type={type}
                     autoComplete="name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder={`${placeholder}`}
                 />
                 {errors[`${name}`] && (
