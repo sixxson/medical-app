@@ -26,7 +26,7 @@ import { signOut } from "next-auth/react"
 import { Session } from "next-auth"
 
 export default function SiteHeader(
-    { session }: { session: Session }
+    { session }: { session: Session|null }
 ) {
     const user = session?.user;
     const router = useRouter();

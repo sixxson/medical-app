@@ -11,9 +11,7 @@ export default async function Layout(
     }) {
 
     const session = await getServerSession(authOptions);
-    if (!session) {
-        redirect("/")
-    }
+
     return (
         <div>
             <SiteHeader
