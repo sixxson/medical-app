@@ -22,7 +22,6 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import Image from 'next/image'
 
 
 const products = [
@@ -46,7 +45,7 @@ export default function Navbar() {
                 <div className="flex lg:flex-1">
                     <Link href="/" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
-                        <Image alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" height={32} width={32} />
+                        <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8" />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
@@ -83,13 +82,13 @@ export default function Navbar() {
                     <div className="flex items-center justify-between">
                         <Link href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
-                            <Image
+                            <img
                                 alt=""  
                                 src="https://tailwindui.com/img/logos/mark.svg?
                                 color=indigo&shade=600"
                                 className="h-8 w-auto"
-                                width={32}
-                                height={32}
+                                width="32"
+                                height="32"
                             />
                         </Link>
                         <button
