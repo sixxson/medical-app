@@ -3,6 +3,8 @@ import { LinkIcon } from "@heroicons/react/20/solid";
 import TransitionText from "./TransitionText";
 import Seachbar from "./Seachbar";
 import { CommandMenu } from "../command-menu";
+import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   const TEXTS = [
@@ -86,7 +88,7 @@ const Hero = () => {
             <div className="w-full px-4 lg:w-5/12">
               <div className="lg:ml-auto lg:text-right">
                 <div className="relative z-[9] inline-block pt-11 lg:pt-0">
-                  <img
+                  <Image
                     src="https://cdn.tailgrids.com/1.0/assets/images/hero/hero-image-01.png"
                     alt="hero"
                     className="max-w-full lg:ml-auto"
@@ -141,9 +143,9 @@ export default Hero;
 const SingleImage = ({ href, imgSrc }: { href: string, imgSrc: string }) => {
   return (
     <>
-      <a href={href} className="flex w-full items-center justify-center">
-        <img src={imgSrc} alt="brand image" className="h-10 w-full" />
-      </a>
+      <Link href={href} className="flex w-full items-center justify-center">
+        <Image src={imgSrc} alt="brand image" className="h-10 w-full" />
+      </Link>
     </>
   );
 };

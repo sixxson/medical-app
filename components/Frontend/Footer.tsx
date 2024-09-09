@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
 
@@ -116,9 +117,9 @@ export default function Footer() {
             <div className="gap-6 justify-between md:flex">
                 <div className="flex-1">
                     <div className="max-w-xs">
-                        <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="w-20" />
+                        <Image src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt='' width={80} height={80} className="w-20" />
                         <p className="leading-relaxed mt-2 text-[15px]">
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                            Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
                         </p>
                     </div>
                     <form

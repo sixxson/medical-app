@@ -3,16 +3,16 @@ import {
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-  } from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip"
 import { Check, HelpCircle } from "lucide-react";
 
-export default () => {
+export default function Pricing() {
 
     const plans = [
         {
             name: "Basic plan",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            price: 0 ,
+            price: 0,
             fee: 5,
             isMostPop: false,
             features: [
@@ -106,7 +106,7 @@ export default () => {
                                     {
                                         item.features.map((featureItem, idx) => (
                                             <li key={idx} className='flex items-center gap-5'>
-                                               <Check size={24} className='text-indigo-600' />
+                                                <Check size={24} className='text-indigo-600' />
                                                 {featureItem}
                                             </li>
                                         ))

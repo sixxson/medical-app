@@ -25,10 +25,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import path from "path";
 
-
-export default async function Sidebar() {
+export default function Sidebar() {
     const pathname = usePathname()
     const sideBarLinks = [
         {
