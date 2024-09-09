@@ -8,10 +8,11 @@ const TabbendSection = () => {
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
             <div className="mx-auto mb-12 max-w-5xl text-center lg:mb-20">
-              <span className="mb-2 block text-lg font-semibold text-primary">
+              <h2 className="mb-3 text-3xl font-bold leading-[1.2] text-dark dark:text-white
+              sm:text-4xl md:text-[40px] scroll-m-20 border-b pb-2 tracking-tight first:mt-0">
                 Our Services
-              </span>
-              <p className="text-base text-body-color dark:text-dark-6">
+              </h2>
+              <p className="leading-7 [&:not(:first-child)]:mt-6 text-base text-body-color dark:text-dark-6">
                 There are many variations of passages of Lorem Ipsum available,
                 but the majority have suffered alteration in some form, by injected humour, 
                 or randomised words which don`t look even slightly believable.

@@ -5,17 +5,25 @@ import Seachbar from "./Seachbar";
 import { CommandMenu } from "../command-menu";
 
 const Hero = () => {
-  const TEXTS = ["Acupuncture", "Massage", "Chiropractic", "Physiotherapy", "Naturopathy", "Dental",
-    "Cosmetic", "Dietitian", "Acupuncturist"
+  const TEXTS = [
+    "Massage", 
+    "Dental",
+    "Cosmetic", 
+    "Dietitian", 
+    "Therapist",
+    "Skin Care",
+    
   ];
   return (
-    <div className="bg-blue-950">
-      <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-7xl mx-auto">
-        <div className="container mx-auto">
+    <div className="bg-blue-950 dark:bg-slate-700">
+      <div className="relative pb-[110px] pt-[50px] dark:bg-dark lg:pt-[50px] max-w-6xl mx-auto">
+        <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-6/12">
               <div className="hero-content">
-                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+                <h1 className="mb-5 text-4xl font-bold leading-[1.208] text-gray-50
+                dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl flex flex-wrap
+                items-center gap-3">
                   <span>Book your</span>
                   <TransitionText className="text-fuchsia-500" TEXTS={TEXTS} />
                   <br />

@@ -47,7 +47,7 @@ export default function Login() {
                 reset();
                 setIsLoading(false);
                 toast.success("Login Successful");
-                router.push("/");
+                router.push("/dashboard");
             }
         } catch (error) {
             setIsLoading(false);

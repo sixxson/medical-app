@@ -7,8 +7,8 @@ export default function ServiceCard({services}: {services: ServicesProps}) {
     return (
         <Link
             href={`/services/${services.slug}`}
-            className='rounded-md bg-slate-400 hover:bg-slate-200 
-            duration-300 flex gap-4 overflow-hidden'>
+            className='rounded-md bg-slate-50 hover:bg-slate-200 
+            duration-300 flex gap-4 overflow-hidden dark:bg-slate-800'>
             <Image
                 src={services.image}
                 alt={services.title}
@@ -17,7 +17,7 @@ export default function ServiceCard({services}: {services: ServicesProps}) {
                 className='rounded-md w-1/3 object-cover'
             />
             <div className="flex flex-col w-2/3 py-4">
-                <h2 className='text-2xl font-bold'>{services.title}</h2>
+                <h2 className='text-2x font-bold'>{services.title}</h2>
                 <p className='text-xl'>00000 Doctor Available</p>
             </div>
         </Link>

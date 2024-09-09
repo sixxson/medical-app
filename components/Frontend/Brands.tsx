@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export type SingleImageProps = {
@@ -43,8 +45,9 @@ const brandsData = [
 
 export default function Brands() {
   return (
-    <section className="bg-slate-50 py-2 lg:py-4 dark:bg-dark">
-      <h2 className="text-center pb-6">Trusted By</h2>
+    <section className="bg-slate-100 py-10 dark:bg-black lg:py-[60px]">
+      <h2 className="text-center pb-6 scroll-m-20 text-2xl font-semibold
+      tracking-tight">Trusted By</h2>
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
@@ -64,17 +67,18 @@ const SingleImage = ({brand}:any) => {
     const { link, imageSrc, lightImageSrc, altText }: SingleImageProps = brand;
     return (
     <>
-      <a
+      <Link
         href={link}
         className="mx-4 flex w-[150px] items-center justify-center py-5 2xl:w-[180px]"
       >
-        <img src={imageSrc} alt={altText} className="h-10 w-full dark:hidden" />
-        <img
+        <Image src={imageSrc} alt={altText} width={150} height={70} className="h-10 w-full dark:hidden" />
+        <Image
           src={lightImageSrc}
           alt={altText}
           className="hidden h-10 w-full dark:block"
+          width={150} height={70}
         />
-      </a>
+      </Link>
     </>
   );
 };

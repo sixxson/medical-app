@@ -9,8 +9,10 @@ export default function Home() {
       <Hero />
       <Brands />
       <TabbendSection />
-      <DoctorsList className="bg-white py-8 lg:py-24" title="TeleHealth visit" isInPreson = {false}/>
-      <DoctorsList className="bg-white py-8 lg:py-24" title="In-preson dortor visit" isInPreson = {true}/>
+      <DoctorsList isInPreson={false} />
+      <DoctorsList className="bg-blue-50 py-8 lg:py-24 dark:bg-slate-900"
+        title="In-preson dortor visit"
+        isInPreson={true} />
     </section>
   );
 }
