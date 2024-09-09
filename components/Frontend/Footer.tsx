@@ -118,7 +118,7 @@ export default function Footer() {
                     <div className="max-w-xs">
                         <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="w-20" />
                         <p className="leading-relaxed mt-2 text-[15px]">
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                            Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
                         </p>
                     </div>
                     <form

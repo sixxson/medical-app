@@ -6,7 +6,7 @@ import {
   } from "@/components/ui/tooltip"
 import { Check, HelpCircle } from "lucide-react";
 
-export default () => {
+export default function Pricing () {
 
     const plans = [
         {
