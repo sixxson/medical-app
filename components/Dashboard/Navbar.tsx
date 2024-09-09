@@ -37,10 +37,11 @@ import { Button } from "@/components/ui/button"
 import LogoutButton from "./LogoutButton"
 import ModeToggle from "../ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { User } from "next-auth";
+import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 
-export default function Navbar({ user }:{user:User}) {
+export default function Navbar({ session }:{session:Session}) {
+    const user = session.user;
     const router = useRouter();
     async function handleLogout() {
         await signOut();
