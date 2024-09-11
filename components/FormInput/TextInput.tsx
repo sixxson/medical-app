@@ -2,6 +2,7 @@ import React from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 type TextInputProps = {
     label: string,
@@ -11,6 +12,7 @@ type TextInputProps = {
     type?: string
     placeholder: string
     page?: string
+    className?: string
 }
 
 export default function TextInput({
@@ -20,10 +22,11 @@ export default function TextInput({
     errors,
     type,
     placeholder,
-    page
+    page,
+    className ="col-span-full" 
 }: TextInputProps) {
     return (
-        <div className='grid gap-2'>
+        <div className={cn('grid gap-2',className)}>
             {type === 'password' && page === 'login'
                 ? (
                     <div className="flex items-center">

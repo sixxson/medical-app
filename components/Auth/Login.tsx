@@ -92,7 +92,7 @@ export default function Login() {
                         <SubmitButton
                             title="Login"
                             loadingTitle="Logging you please wait..."
-                            isLoading={isLoading}
+                            isLoading={isLoading} 
                         />
                         <Button variant="outline" className="w-full">
                             Login with Google
@@ -100,7 +100,13 @@ export default function Login() {
                     </form>
                     <div className="mt-4 text-center text-sm">
                         Don&apos;t have an account?{" "}
-                        <Link href="/register" className="underline">
+                        <Link href="/register?role=USER&plan=free" className="underline">
+                            Sign up
+                        </Link>
+                    </div>
+                    <div className="mt-4 text-center text-sm">
+                        Don&apos;t have an account?{" "}
+                        <Link href="/register?role=USER&plan=free" className="underline">
                             Sign up
                         </Link>
                     </div>

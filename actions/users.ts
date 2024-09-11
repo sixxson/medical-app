@@ -7,7 +7,7 @@ import { Resend } from "resend";
 
 export async function createUser(formData: RegisterInputProps) {
     const resend = new Resend(process.env.SENDGRID_API_KEY);
-    const { fullName, phone, email, password, role } = formData;
+const { fullName, phone, email, password, role, plan } = formData;
 
     try {
         const existingUser = await prismaClient.user.findUnique({
@@ -38,6 +38,7 @@ export async function createUser(formData: RegisterInputProps) {
                 phone,
                 password: hashedPassword,
                 role,
+                plan,
                 token: userToken,
             },
         });
@@ -51,7 +52,7 @@ export async function createUser(formData: RegisterInputProps) {
             To complete your registration and verify your email address, 
             please enter the following 6-digit verification code on our website :`;
         const sendMail = await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'Medical App  <info@tiemanvatla.id.vn>',
             to: email,
             subject: "Verify Your Email Address",
             react: EmailTemplate({ firstName, token, linkText, message }),

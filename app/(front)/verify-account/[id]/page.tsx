@@ -10,6 +10,7 @@ export default async function VerifyAccount({
     //Get a User
     const user = await getUserById(id);
     const userToken = user?.token;
+    const role = user?.role;
     return (
         <div className="min-h-screen flex items-center justify-center">
             <Card>
@@ -19,7 +20,7 @@ export default async function VerifyAccount({
                         Please check your email -{user?.email}- and Enter the code we sent there to verify your account.
                     </CardDescription>
                     <CardContent>
-                        <VerifyTokenForm userToken={userToken} id={id} />
+                        <VerifyTokenForm role={role} userToken={userToken} id={id} />
                     </CardContent>
                 </CardHeader>
             </Card>

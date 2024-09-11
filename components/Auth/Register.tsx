@@ -18,7 +18,15 @@ import { UserRole } from "@prisma/client"
 export const description =
     "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account."
 
-export default function Register({ role = "USER" }: { role: UserRole }) {
+export default function Register(
+    {
+        role = "USER",
+        plan = "free"
+    }: {
+        role?: string | string[] | undefined,
+        plan?: string | string[] | undefined
+    }
+) {
 
     const [isLoading, setIsLoading] = React.useState(false)
     const [showNotification, setShowNotification] = React.useState(false)
@@ -33,6 +41,7 @@ export default function Register({ role = "USER" }: { role: UserRole }) {
     async function onSubmit(data: RegisterInputProps) {
         setIsLoading(true)
         data.role = role
+        data.plan = plan
         try {
             const user = await createUser(data)
 
@@ -41,7 +50,7 @@ export default function Register({ role = "USER" }: { role: UserRole }) {
                 reset()
                 setIsLoading(false)
                 toast.success("User created successfully")
-                router.push(`/verify-account/${user.data?.id}`);    
+                router.push(`/verify-account/${user.data?.id}`);
                 console.log(user.data);
             } else {
                 console.log(

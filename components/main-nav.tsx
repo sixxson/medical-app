@@ -19,81 +19,70 @@ export default function MainNav() {
             </Link>
             <nav className="flex items-center gap-4 text-sm lg:gap-6">
                 <Link
-                    href="/docs"
+                    href="/"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname === "/docs" ? "text-foreground" : "text-foreground/60"
+                        pathname === "/" ? "text-foreground" : "text-foreground/60"
                     )}
                 >
-                    Docs
+                    Home
                 </Link>
                 <Link
-                    href="/docs/components"
+                    href="/join/doctors"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/docs/components") &&
-                            !pathname?.startsWith("/docs/component/chart")
+                        pathname?.startsWith("/join/doctors") &&
+                            !pathname?.startsWith("/join/doctors")
                             ? "text-foreground"
                             : "text-foreground/60"
                     )}
                 >
-                    Components
+                    Find Doctor
                 </Link>
                 <Link
-                    href="/blocks"
+                    href="/telehealthvisit"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/blocks")
+                        pathname?.startsWith("/telehealthvisit")
                             ? "text-foreground"
                             : "text-foreground/60"
                     )}
                 >
-                    Blocks
+                    Telehealth Visit
                 </Link>
                 <Link
-                    href="/charts"
+                    href="/inpresonvisit"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/docs/component/chart") ||
-                            pathname?.startsWith("/charts")
+                        pathname?.startsWith("/inpresonvisit")
                             ? "text-foreground"
                             : "text-foreground/60"
                     )}
                 >
-                    Charts
+                    Inpreson Visit
                 </Link>
                 <Link
-                    href="/themes"
+                    href="/about"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/themes")
+                        pathname?.startsWith("/about") ||
+                            pathname?.startsWith("/about")
                             ? "text-foreground"
                             : "text-foreground/60"
                     )}
                 >
-                    Themes
+                    About
                 </Link>
                 <Link
-                    href="/examples"
+                    href="/besevice"
                     className={cn(
                         "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/examples")
+                        pathname?.startsWith("/besevice")
                             ? "text-foreground"
                             : "text-foreground/60"
                     )}
                 >
-                    Examples
-                </Link>
-                <Link
-                    href="/colors"
-                    className={cn(
-                        "transition-colors hover:text-foreground/80",
-                        pathname?.startsWith("/colors")
-                            ? "text-foreground"
-                            : "text-foreground/60"
-                    )}
-                >
-                    Colors
+                    Be Sevice Provider
                 </Link>
             </nav>
         </div>

@@ -62,6 +62,7 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem><Link href='/dashboard'>Dashboard</Link></DropdownMenuItem>
                                         <DropdownMenuItem>Support</DropdownMenuItem>
+                                        <DropdownMenuItem><Link href='/onboarding/${id}'>Onboarding</Link></DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onClick={() => handleLogout()}>Logout <LogOut size={15} className="ml-2" /></DropdownMenuItem>
                                     </DropdownMenuContent>
