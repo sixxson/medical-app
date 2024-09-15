@@ -7,27 +7,49 @@ import BioDataForm from './BioDataForm';
 import ContactInfo from './ContactInfo';
 import ProfessionInfo from './ProfessionInfo';
 import { log } from 'console';
+import ProfileInfoForm from './ProfileInfoForm';
 
-export default function OnboardingSteps({id}:{id:string}) {
+export default function OnboardingSteps({ id }: { id: string }) {
 
     const parmas = useSearchParams()
-    const page = parmas.get('page')
+    const page = parmas.get('page') ?? 'bio-data'
     console.log(page);
     const steps = [
         {
             title: 'Bio Data',
             page: 'bio-data',
-            component: <BioDataForm />
+            component: <BioDataForm
+                title='Bio Data'
+                description='Please fill in your Bio Data Info '
+                page={page}
+            />
+        },
+        {
+            title: 'Profile Information',
+            page: 'profile',
+            component: <ProfileInfoForm
+                title='Profile Information'
+                description='Please fill in your Profile Information'
+                page={page}
+            />
         },
         {
             title: 'Contact Information',
             page: 'contact',
-            component: <ContactInfo />
+            component: <ContactInfo
+                title='Contact Information'
+                description='Please fill in your Contact Information'
+                page={page}
+            />
         },
         {
             title: 'Professional Information',
             page: 'professional',
-            component: <ProfessionInfo />
+            component: <ProfessionInfo 
+                title='Professional Information'
+                description='Please fill in your Professional Information'
+                page={page}
+            />
         },
         {
             title: 'Education Information',
@@ -59,12 +81,12 @@ export default function OnboardingSteps({id}:{id:string}) {
             <div className="col-span-full sm:col-span-3 divide-y-2 divide-gray-200">
                 {
                     steps.map((step, i) => (
-                        <Link 
-                        href={`/onboarding/${id}?page=${step.page}`} 
-                        key={i} 
-                        className={cn(`block uppercase text-sm py-3 px-4 shadow-inner
-                            hover:bg-teal-800 hover:text-slate-100`, 
-                            step.page === page ? 'bg-teal-800 text-slate-100' : 'bg-slate-300 text-black')}
+                        <Link
+                            href={`/onboarding/${id}?page=${step.page}`}
+                            key={i}
+                            className={cn(`block uppercase text-sm py-3 px-4 shadow-inner
+                            hover:bg-teal-800 hover:text-slate-100`,
+                                step.page === page ? 'bg-teal-800 text-slate-100' : 'bg-slate-300 text-black')}
                         >
                             {step.title}
                         </Link>

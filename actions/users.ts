@@ -52,7 +52,7 @@ const { fullName, phone, email, password, role, plan } = formData;
             To complete your registration and verify your email address, 
             please enter the following 6-digit verification code on our website :`;
         const sendMail = await resend.emails.send({
-            from: 'Medical App  <info@tiemanvatla.id.vn>',
+            from: 'Medical App  <info@sixcom.io.vn>',
             to: email,
             subject: "Verify Your Email Address",
             react: EmailTemplate({ firstName, token, linkText, message }),

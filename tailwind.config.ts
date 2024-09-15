@@ -1,8 +1,9 @@
 import type { Config } from "tailwindcss";
+import { withUt } from "uploadthing/tw";
 
 const flowbite = require("flowbite-react/tailwind");
 
-const config = {
+const withUT = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -110,4 +111,4 @@ const config = {
 	],
 } satisfies Config;
 
-export default config;
+export default withUT;

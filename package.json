@@ -37,10 +37,12 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@react-email/components": "0.0.23",
     "@types/bcrypt": "^5.0.2",
+    "@uploadthing/react": "^6.8.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "data-fns": "^1.1.0",
     "date-fns": "^3.6.0",
     "flowbite-react": "^0.10.1",
     "input-otp": "^1.2.4",
@@ -61,6 +63,7 @@
     "tailgrids": "^2.2.7",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "uploadthing": "^6.13.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {

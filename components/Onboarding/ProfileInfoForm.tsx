@@ -5,36 +5,31 @@ import { useForm } from 'react-hook-form'
 import TextInput from "../FormInput/TextInput"
 import { BioDataFormProps, StepFormProps } from "@/types/types"
 import { DatePickerInput } from "../FormInput/DatePickerInput"
-import RadioInput from "../FormInput/RadioInput"
+import TextAreaInput from "../FormInput/TextAreaInput"
 import toast from "react-hot-toast"
+import ImageInput from "../FormInput/ImageInput"
+import SelectionInput from "../FormInput/SelectionInput"
 
-
-export default function BioDataForm({ page, title, description }: StepFormProps) {
-    const [dob, setDOB] = React.useState<Date>()
+export default function ProfileInfoForm({ page, title, description }: StepFormProps) {
     const [expiry, setExpiry] = React.useState<Date>()
-    const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
     const [isLoading, setIsLoading] = React.useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm<BioDataFormProps>()
+    const [profileImage, setProfileImage] = React.useState()
 
     async function onSubmit(data: BioDataFormProps) {
-        if (!dob) {
-            toast.error('Please select your Date of Birth')
-            return
-        }
         if (!expiry) {
             toast.error('Please select your Medical License Expiry')
             return
         }
         setIsLoading(true)
-        data.dob = dob
-        // data.medicalLicenseExpiration = expiry
+        data.medicalLicenseExpiration = expiry
         data.page = page
         reset()
         console.log(data);
     }
     return (
         <div className="w-full">
-            <div className=" text-center border border-gray-200 pb-4 dark:text-slate-900 ">
+            <div className=" text-center border border-gray-200 pb-4">
                 <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl">
                     {title}
                 </h2>
@@ -48,45 +43,43 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">
                     <TextInput
-                        label='Frist Name'
+                        label='Email Address'
                         register={register}
-                        name='firstName'
-                        type='text'
+                        name='email'
+                        type='email'
                         errors={errors}
-                        placeholder='Nguyen'
-                        className="col-span-full sm:col-span-1"
+                        placeholder='ex: abc@xyz.com'
                     />
                     <TextInput
-                        label='Last Name'
+                        label='Phone Number'
                         register={register}
-                        name='lastName'
-                        type='text'
+                        name='phone'
+                        type='tel'
                         errors={errors}
-                        placeholder='Van A'
-                        className="col-span-full sm:col-span-1"
-                    />
-                    <TextInput
-                        label='Middle Name'
-                        register={register}
-                        name='middleName'
-                        type='text'
-                        errors={errors}
-                        placeholder='abc@xyz.com'
+                        placeholder='ex: 08012345678'
                         className="col-span-full sm:col-span-1"
                     />
                     <DatePickerInput
+                        title="Medical License Expiry"
+                        date={expiry}
+                        setDate={setExpiry} 
                         errors={errors}
-                        date={dob}
-                        setDate={setDOB}
                         className="col-span-full sm:col-span-1"
-                        title="Date of Birth"
                     />
-                    <RadioInput
-                        radioOptions={genderOptions}
-                        errors={errors}
-                        title="Gender"
+                    <TextAreaInput
+                        label='Enter your Biography'
                         register={register}
-                        name="gender"
+                        name='bio'
+                        type='text'
+                        errors={errors}
+                        placeholder='Enter your Biography'
+                        className="col-span-full"
+                    />
+                    <ImageInput
+                        label='Professional Profile Image'
+                        imageUrl={profileImage}
+                        setImageUrl={setProfileImage}
+                        endpoint='doctorProfileImage'
                     />
                 </div>
                 <div className="mt-8 flex justify-center items-center">

@@ -48,9 +48,9 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                                         <Button variant="secondary" size="icon" className="rounded-full">
                                             <Avatar>
                                                 {user.image ? (
-                                                    <AvatarImage src="/avatars/01.png" />
-                                                ) : (
                                                     <AvatarFallback>{user.name}</AvatarFallback>
+                                                ) : (
+                                                    <AvatarImage src="/avatars/01.png" />
                                                 )}
                                             </Avatar>
                                             <span className="sr-only">Toggle user menu</span>
