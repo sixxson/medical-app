@@ -106,7 +106,7 @@ export default function Login() {
                     </div>
                     <div className="mt-4 text-center text-sm">
                         Don&apos;t have an account?{" "}
-                        <Link href="/register?role=USER&plan=free" className="underline">
+                        <Link href="/register?role=DOCTOR&plan=premium" className="underline">
                             Sign up
                         </Link>
                     </div>

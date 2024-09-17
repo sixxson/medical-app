@@ -3,20 +3,21 @@ import SubmitButton from "../FormInput/SubmitButton"
 import React from "react"
 import { useForm } from 'react-hook-form'
 import TextInput from "../FormInput/TextInput"
-import { BioDataFormProps, StepFormProps } from "@/types/types"
+import {  ProfileFormProps, StepFormProps } from "@/types/types"
 import { DatePickerInput } from "../FormInput/DatePickerInput"
 import TextAreaInput from "../FormInput/TextAreaInput"
 import toast from "react-hot-toast"
 import ImageInput from "../FormInput/ImageInput"
 import SelectionInput from "../FormInput/SelectionInput"
+import { Profile } from "next-auth"
 
 export default function ProfileInfoForm({ page, title, description }: StepFormProps) {
     const [expiry, setExpiry] = React.useState<Date>()
     const [isLoading, setIsLoading] = React.useState(false)
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<BioDataFormProps>()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>()
     const [profileImage, setProfileImage] = React.useState()
 
-    async function onSubmit(data: BioDataFormProps) {
+    async function onSubmit(data: ProfileFormProps) {
         if (!expiry) {
             toast.error('Please select your Medical License Expiry')
             return

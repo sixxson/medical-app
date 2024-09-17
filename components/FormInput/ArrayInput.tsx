@@ -1,20 +1,23 @@
 import { Pencil, Plus, X } from 'lucide-react'
 import React from 'react'
 
+export type ArrayInputProps = {
+    setItems: any;
+    items: string[];
+    itemTitle: string;
+    className?: string;
+};
+
 export default function ArrayInput({
     setItems,
     items = [],
     itemTitle,
-}: {
-    setItems: any,
-    items: string[],
-    itemTitle: string,
-}) {
+    className="sm:col-span-1 col-span-full"
+}: ArrayInputProps) {
 
     const [item, setItem] = React.useState("")
     const [showTagForm, setShowTagForm] = React.useState(false)
     function addItem() {
-        setShowTagForm(true)
         if (!item) return
         setItems([...items, item])
         setItem("")
@@ -26,9 +29,8 @@ export default function ArrayInput({
     }
 
     return (
-        <div className='sm:col-span-2 col-span-full'>
-            {
-                showTagForm ? (
+        <div className={className}>
+            {showTagForm ? (
                     <div className="flex items-center">
                         <div className="relative w-full">
                             <div className='absolute inset-y-0 start-0 flex items-center ps-3
@@ -37,8 +39,8 @@ export default function ArrayInput({
                             </div>
                             <input
                                 value={item}
-                                type="text"
                                 onChange={(e) => setItem(e.target.value)}
+                                type="text"
                                 id='voice-search'
                                 className='bg-gray-50 dark:bg-gray-800 border border-gray-200 text-gray-900 text-base rounded-lg
                                 focus:ring-blue-500 block w-full ps-10 p-2.5 dark:border-gray-700 dark:text-gray-50
@@ -60,9 +62,9 @@ export default function ArrayInput({
                         <button
                             type="button"
                             onClick={() => setShowTagForm(false)}
-                            className='ml-3 shrink-0 w-8 h-8 bg-red-400 rounded-full flex items-center justify-center'
+                            className='ml-3 shrink-0 w-8 h-8 bg-red-200 rounded-full flex items-center justify-center'
                         >
-                            <X size={18} className='text-red' />
+                            <X size={18} className='text-red-700' />
                         </button>
                     </div>
                 ) : (
@@ -70,9 +72,9 @@ export default function ArrayInput({
                         onClick={addItem}
                         type='button'
                         className='shrink-0 inline-flex items-center py-2.5 px-3 ms-2 text-sm
-                    font-medium rounded-md text-white bg-blue-600 border border-blue-700 hover:bg-blue-800
-                    focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:border-blue-700
-                    dark:focus:ring-blue-800 dark:hover:bg-blue-700'
+                    font-medium rounded-md text-gray-800 border border-blue-700 
+                    focus:ring-4 focus:outline-none focus:ring-blue-300 dark:border-blue-700
+                    dark:focus:ring-blue-800 '
                     >
                         <Plus size={18} className='me-2' />
                         <span>Add {itemTitle}</span>
@@ -85,7 +87,7 @@ export default function ArrayInput({
                         <div
                             onClick={() => removeItem(i)}
                             key={i}
-                            className='bg-gray-100 dark:bg-blue-400 text-gray-900 dark:text-gray-50 px-4 py-2 
+                            className='bg-gray-100 dark:bg-blue-400 text-red-900 dark:text-gray-50 px-4 py-2 
                             rounded-md  cursor-pointer flex items-center border-gray-900 border-2 dark:border-blue-600 border-dashed'
                         >
                             {item}

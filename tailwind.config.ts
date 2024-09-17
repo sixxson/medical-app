@@ -3,7 +3,7 @@ import { withUt } from "uploadthing/tw";
 
 const flowbite = require("flowbite-react/tailwind");
 
-const withUT = {
+export default withUt({
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -109,6 +109,5 @@ const withUT = {
 		require("@tailwindcss/forms"),
 		flowbite.plugin(),
 	],
-} satisfies Config;
+}) satisfies Config;
 
-export default withUT;

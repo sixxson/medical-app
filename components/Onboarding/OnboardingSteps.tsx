@@ -6,8 +6,11 @@ import React from 'react'
 import BioDataForm from './BioDataForm';
 import ContactInfo from './ContactInfo';
 import ProfessionInfo from './ProfessionInfo';
-import { log } from 'console';
 import ProfileInfoForm from './ProfileInfoForm';
+import EducationInfo from './EducationInfo';
+import PracticeInfo from './PracticeInfo';
+import AdditionalForm from './AdditionalForm';
+import Availability from './Availability';
 
 export default function OnboardingSteps({ id }: { id: string }) {
 
@@ -42,34 +45,50 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 page={page}
             />
         },
+        // {
+        //     title: 'Professional Information',
+        //     page: 'professional',
+        //     component: <ProfessionInfo
+        //         title='Professional Information'
+        //         description='Please fill in your Professional Information'
+        //         page={page}
+        //     />
+        // },
         {
-            title: 'Professional Information',
-            page: 'professional',
-            component: <ProfessionInfo 
-                title='Professional Information'
-                description='Please fill in your Professional Information'
+            title: 'Education Information',
+            page: 'education',
+            component: <EducationInfo
+                title='Education Information'
+                description='Please fill in your Education Information'
                 page={page}
             />
         },
         {
-            title: 'Education Information',
-            page: 'education',
-            component: <></>
-        },
-        {
             title: 'Practice Information',
             page: 'practice',
-            component: <></>
+            component: <PracticeInfo
+                title='Practice Information'
+                description='Please fill in your Practice Information'
+                page={page}
+            />
         },
         {
             title: 'Additional Information',
             page: 'additional',
-            component: <></>
+            component: <AdditionalForm
+                title='Additional Information'
+                description='Please fill in your Additional Information'
+                page={page}
+            />
         },
         {
             title: 'Availability',
             page: 'availability',
-            component: <></>
+            component: <Availability
+                title='Availability'
+                description='Please fill in your Availability Information'
+                page={page}
+            />
         },
     ]
     const currentStep = steps.find(step => step.page === page)
@@ -78,7 +97,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
     return (
         <div className='grid grid-cols-12 mx-auto rounded-lg shadow-inner overflow-hidden
             border border-slate-200 min-h-screen bg-slate-100 '>
-            <div className="col-span-full sm:col-span-3 divide-y-2 divide-gray-200">
+            <div className="col-span-full sm:col-span-3 divide-y-2 divide-gray-200 bg-slate-300 h-full">
                 {
                     steps.map((step, i) => (
                         <Link

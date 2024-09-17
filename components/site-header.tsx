@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link"
-import { CommandMenu } from "@/components/command-menu"
+// import { CommandMenu } from "@/components/command-menu"
 import MainNav from "@/components/main-nav"
 import ModeToggle from "@/components/ModeToggle"
 import { Button } from "@/components/ui/button"
@@ -24,6 +24,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { CommandMenu } from "./command-menu";
 
 export default function SiteHeader({ session }: { session: Session | null }) {
     const user = session?.user;

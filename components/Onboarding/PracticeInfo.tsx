@@ -1,12 +1,11 @@
-import { BioDataFormProps, StepFormProps } from '@/types/types'
-import exp from 'constants'
+import { PracticeFormProps, StepFormProps } from '@/types/types'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import SubmitButton from '../FormInput/SubmitButton'
-import RadioInput from '../FormInput/RadioInput'
-import { DatePickerInput } from '../FormInput/DatePickerInput'
 import TextInput from '../FormInput/TextInput'
+import ArrayInput from '../FormInput/ArrayInput'
+import ShalSelectionInput from '../FormInput/ShadSelectionInput'
+
 
 export default function PracticeInfo({
   page,
@@ -14,25 +13,14 @@ export default function PracticeInfo({
   description,
 }: StepFormProps) {
   const [isLoading, setIsLoading] = React.useState(false)
-  const [dob, setDOB] = React.useState<Date>()
-  const [expiry, setExpiry] = React.useState<Date>()
-  const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<BioDataFormProps>()
+  const insuranceOption = [{label:"Choose your Option", value:"none"}, { label: "Yes", value: "yes" }, { label: "No", value: "no" }]
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<PracticeFormProps>()
+  const [services, setServices] = React.useState([])
+  const [languages, setLanguages] = React.useState([])
+  const [insuranceAccepted, setInsuranceAccepted] = React.useState('')
 
-  async function onSubmit(data: BioDataFormProps) {
-    if (!dob) {
-      toast.error('Please select your Date of Birth')
-      return
-    }
-    if (!expiry) {
-      toast.error('Please select your Medical License Expiry')
-      return
-    }
-    setIsLoading(true)
-    data.dob = dob
-    // data.medicalLicenseExpiration = expiry
+  async function onSubmit(data: PracticeFormProps) {
     data.page = page
-    reset()
     console.log(data);
   }
 
@@ -52,45 +40,80 @@ export default function PracticeInfo({
         method="POST">
         <div className="grid gap-4 grid-cols-2">
           <TextInput
-            label='Frist Name'
+            label='Hospital Name'
             register={register}
-            name='firstName'
+            name='hospitalName'
             type='text'
             errors={errors}
-            placeholder='Nguyen'
+            placeholder='Enter your Hospital Name'
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label='Last Name'
+            label='Hospital Address'
             register={register}
-            name='lastName'
+            name='hospitalAddress'
             type='text'
             errors={errors}
-            placeholder='Van A'
+            placeholder='Enter your Hospital Address'
             className="col-span-full sm:col-span-1"
           />
           <TextInput
-            label='Middle Name'
+            label='Hospital Contact Number'
             register={register}
-            name='middleName'
+            name='hospitalContact'
             type='text'
             errors={errors}
-            placeholder='abc@xyz.com'
+            placeholder='Enter your Hospital Contact Number'
             className="col-span-full sm:col-span-1"
           />
-          <DatePickerInput
-            errors={errors}
-            date={dob}
-            setDate={setDOB}
-            className="col-span-full sm:col-span-1"
-            title="Date of Birth"
-          />
-          <RadioInput
-            radioOptions={genderOptions}
-            errors={errors}
-            title="Gender"
+          <TextInput
+            label='Hospital Email Address'
             register={register}
-            name="gender"
+            name='hospitalEmail'
+            type='text'
+            errors={errors}
+            placeholder='Enter your Hospital Email Address'
+            className="col-span-full sm:col-span-1"
+          />
+          <TextInput
+            label='Hospital Website (Optional)'
+            register={register}
+            name='hospitalWebsite'
+            type='text'
+            errors={errors}
+            isRequired={false}
+            placeholder='Enter your Hospital Website'
+            className="col-span-full sm:col-span-1"
+          />
+          <TextInput
+            label='Hospital Hours of Operation'
+            register={register}
+            name='hospitalHoursOfOperation'
+            type='text'
+            errors={errors}
+            placeholder='Enter your Hospital Hours of Operation eg 5'
+            className="col-span-full sm:col-span-1"
+          />
+            <ShalSelectionInput
+            option={insuranceOption}
+            label=" Insurance Accepted"
+            OptionTitle="insuranceAccepted"
+            register={register}
+            selectOption={insuranceAccepted}
+            setSelectOption={setInsuranceAccepted}
+            name="insuranceAccepted"
+          />
+          <ArrayInput
+            items={services}
+            setItems={setServices}
+            itemTitle='Add Hospital Services'
+            className="col-span-full"
+          />
+          <ArrayInput 
+            items={languages}
+            setItems={setLanguages}
+            itemTitle='Add Languages Spoken at the Hospital'
+            className="col-span-full"
           />
         </div>
         <div className="mt-8 flex justify-center items-center">
@@ -102,6 +125,5 @@ export default function PracticeInfo({
         </div>
       </form>
     </div>
-
   )
 }
