@@ -114,7 +114,7 @@ export default function Login() {
             </div>
             <div className="hidden bg-muted lg:block">
                 <Image
-                    src="/JettValorant.jpg"
+                    src="/image/JettValorant.jpg"
                     alt="Image"
                     width="1170"
                     height="850"

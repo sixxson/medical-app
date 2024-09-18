@@ -41,14 +41,14 @@ export default function TextInput({
                         </Link>
                     </div>
                 ) : (
-                    <Label htmlFor={`${name}`} >
+                    <Label className='text-base' htmlFor={`${name}`} >
                         {label}
                     </Label>
                 )}
 
             <div className="mt-2">
                 <Input
-                    {...register(`${name}`, { required: `${isRequired}` })}
+                    {...register(`${name}`, { required: isRequired })}
                     id={`${name}`}
                     name={`${name}`}
                     type={type}

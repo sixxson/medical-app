@@ -24,7 +24,7 @@ export default function ContactInfo({ page, title, description }: StepFormProps)
             </p>
         </div>
         <form
-            className="mx-auto max-w-3xl  py-4 px-4 "
+            className="mx-auto max-w-3xl dark:text-gray-800 text-base py-4 px-4 "
             onSubmit={handleSubmit(onSubmit)}
             method="POST">
             <div className="grid gap-4 grid-cols-2">

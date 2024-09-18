@@ -7,30 +7,45 @@ import { BioDataFormProps, StepFormProps } from "@/types/types"
 import { DatePickerInput } from "../FormInput/DatePickerInput"
 import RadioInput from "../FormInput/RadioInput"
 import toast from "react-hot-toast"
+import { generateTrackingNumber } from "@/lib/generateTracking"
+import { createDoctorProfile } from "@/actions/onboarding"
+import { useRouter } from "next/navigation"
 
-
-export default function BioDataForm({ page, title, description }: StepFormProps) {
+export default function BioDataForm(
+    {
+        page,
+        title,
+        description,
+        userId,
+        nextPage
+    }: StepFormProps
+) {
     const [dob, setDOB] = React.useState<Date>()
-    const [expiry, setExpiry] = React.useState<Date>()
     const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
     const [isLoading, setIsLoading] = React.useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm<BioDataFormProps>()
+    const router = useRouter()
 
     async function onSubmit(data: BioDataFormProps) {
+        setIsLoading(true)
         if (!dob) {
             toast.error('Please select your Date of Birth')
             return
         }
-        if (!expiry) {
-            toast.error('Please select your Medical License Expiry')
-            return
-        }
-        setIsLoading(true)
         data.dob = dob
-        // data.medicalLicenseExpiration = expiry
         data.page = page
-        reset()
+        data.userId = userId
+        data.trackingNumber = generateTrackingNumber()
         console.log(data);
+        try {
+            const newProfile = await createDoctorProfile(data)
+            setIsLoading(false)
+            router.push(`/onboarding/id=${userId}?page=${nextPage}&&tracking=${data.trackingNumber}`)
+            console.log(newProfile);
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error);
+        }
     }
     return (
         <div className="w-full">
@@ -43,7 +58,7 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                 </p>
             </div>
             <form
-                className="mx-auto max-w-3xl  py-4 px-4 "
+                className="mx-auto max-w-3xl dark:text-slate-400 py-4 px-4 "
                 onSubmit={handleSubmit(onSubmit)}
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">
@@ -66,10 +81,11 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                         className="col-span-full sm:col-span-1"
                     />
                     <TextInput
-                        label='Middle Name'
+                        label='Middle Name (Optional)'
                         register={register}
                         name='middleName'
                         type='text'
+                        isRequired={false}
                         errors={errors}
                         placeholder='abc@xyz.com'
                         className="col-span-full sm:col-span-1"
@@ -92,7 +108,6 @@ export default function BioDataForm({ page, title, description }: StepFormProps)
                 <div className="mt-8 flex justify-center items-center">
                     <SubmitButton
                         title='Save and Continue'
-                        isLoading={isLoading}
                         loadingTitle='Saving please wait ...'
                     />
                 </div>

@@ -21,7 +21,9 @@ export default function PracticeInfo({
 
   async function onSubmit(data: PracticeFormProps) {
     data.page = page
-    console.log(data);
+    console.log('Submitted Data:', data);
+    // console.log('Services:', services);
+    // console.log('Languages:', languages);
   }
 
   return (
@@ -35,7 +37,7 @@ export default function PracticeInfo({
         </p>
       </div>
       <form
-        className="mx-auto max-w-3xl  py-4 px-4 "
+        className="mx-auto max-w-3xl dark:text-slate-900 text-base py-4 px-4 "
         onSubmit={handleSubmit(onSubmit)}
         method="POST">
         <div className="grid gap-4 grid-cols-2">
@@ -104,12 +106,14 @@ export default function PracticeInfo({
             name="insuranceAccepted"
           />
           <ArrayInput
+          register={register}
             items={services}
             setItems={setServices}
             itemTitle='Add Hospital Services'
             className="col-span-full"
           />
           <ArrayInput 
+            register={register}
             items={languages}
             setItems={setLanguages}
             itemTitle='Add Languages Spoken at the Hospital'

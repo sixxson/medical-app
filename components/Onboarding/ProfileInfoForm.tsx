@@ -10,12 +10,15 @@ import toast from "react-hot-toast"
 import ImageInput from "../FormInput/ImageInput"
 import SelectionInput from "../FormInput/SelectionInput"
 import { Profile } from "next-auth"
+import { createDoctorProfile } from "@/actions/onboarding"
+import { useRouter } from "next/navigation"
 
 export default function ProfileInfoForm({ page, title, description }: StepFormProps) {
     const [expiry, setExpiry] = React.useState<Date>()
     const [isLoading, setIsLoading] = React.useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>()
     const [profileImage, setProfileImage] = React.useState()
+    const router = useRouter()
 
     async function onSubmit(data: ProfileFormProps) {
         if (!expiry) {
@@ -25,13 +28,13 @@ export default function ProfileInfoForm({ page, title, description }: StepFormPr
         setIsLoading(true)
         data.medicalLicenseExpiration = expiry
         data.page = page
-        reset()
         console.log(data);
+        
     }
     return (
         <div className="w-full">
             <div className=" text-center border border-gray-200 pb-4">
-                <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl">
+                <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl dark:text-gray-700">
                     {title}
                 </h2>
                 <p className="text-balance text-muted-foreground">
@@ -39,7 +42,7 @@ export default function ProfileInfoForm({ page, title, description }: StepFormPr
                 </p>
             </div>
             <form
-                className="mx-auto max-w-3xl  py-4 px-4 "
+                className="mx-auto max-w-3xl py-4 px-4 dark:text-gray-800 text-base"
                 onSubmit={handleSubmit(onSubmit)}
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">

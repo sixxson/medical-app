@@ -34,7 +34,7 @@ export default function AdditionalForm({ page, title, description }: StepFormPro
                 </p>
             </div>
             <form
-                className="mx-auto max-w-3xl  py-4 px-4 "
+                className="mx-auto max-w-3xl dark:text-slate-900 text-base py-4 px-4 "
                 onSubmit={handleSubmit(onSubmit)}
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">

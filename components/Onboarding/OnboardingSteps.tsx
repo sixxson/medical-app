@@ -22,9 +22,11 @@ export default function OnboardingSteps({ id }: { id: string }) {
             title: 'Bio Data',
             page: 'bio-data',
             component: <BioDataForm
+                userId={id}
                 title='Bio Data'
                 description='Please fill in your Bio Data Info '
                 page={page}
+                nextPage='profile'
             />
         },
         {
@@ -34,6 +36,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Profile Information'
                 description='Please fill in your Profile Information'
                 page={page}
+                nextPage='contact'
             />
         },
         {
@@ -43,17 +46,9 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Contact Information'
                 description='Please fill in your Contact Information'
                 page={page}
+                nextPage='education'
             />
         },
-        // {
-        //     title: 'Professional Information',
-        //     page: 'professional',
-        //     component: <ProfessionInfo
-        //         title='Professional Information'
-        //         description='Please fill in your Professional Information'
-        //         page={page}
-        //     />
-        // },
         {
             title: 'Education Information',
             page: 'education',
@@ -61,6 +56,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Education Information'
                 description='Please fill in your Education Information'
                 page={page}
+                nextPage='practice'
             />
         },
         {
@@ -70,6 +66,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Practice Information'
                 description='Please fill in your Practice Information'
                 page={page}
+                nextPage='additional'
             />
         },
         {
@@ -79,6 +76,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Additional Information'
                 description='Please fill in your Additional Information'
                 page={page}
+                nextPage='availability'
             />
         },
         {

@@ -22,6 +22,8 @@ export type StepFormProps = {
   page: string;
   title: string;
   description: string;
+  userId?: string;
+  nextPage?: string;
 };
 
 export type BioDataFormProps = {
@@ -29,8 +31,10 @@ export type BioDataFormProps = {
   lastName: string;
   middleName?: string;
   dob?: Date;
+  userId: string | undefined;
   gender: string;
   page: string;
+  trackingNumber: string;
 };
 
 export type ContactInfoFormProps = {
@@ -57,7 +61,7 @@ export type EducationFormProps = {
   otherSpecialties: string[];
   boardCertificates: string[];
   page: string;
-};  
+};
 
 export type PracticeFormProps = {
   hospitalName: string;
@@ -66,8 +70,8 @@ export type PracticeFormProps = {
   hospitalEmail: string;
   hospitalWebsite: string;
   hospitalHoursOfOperation: string;
-  servicesOffered: string[];
   insuranceAccepted: boolean;
+  servicesOffered: string[];
   languageSpoken: string[];
   page: string;
 }

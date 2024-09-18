@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 type SubmitButtonProps = {
     title: string
     buttonType?: 'submit' | 'button' | 'reset' | undefined,
-    isLoading: boolean,
+    isLoading?: boolean,
     loadingTitle?: string
 }
 
