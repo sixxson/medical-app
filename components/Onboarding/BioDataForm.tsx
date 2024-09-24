@@ -26,32 +26,41 @@ export default function BioDataForm(
         setTruckingNumber,
         setDoctorProfileId
     } = useOnBoardingContext()
-    const [dob, setDOB] = React.useState<Date>()
     const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
     const [isLoading, setIsLoading] = React.useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm<BioDataFormProps>()
+    const { bioData, setBioData } = useOnBoardingContext()
+    const initialDob = bioData.dob
+    const [dob, setDOB] = React.useState<Date>(initialDob)
+    const { register, handleSubmit, formState: { errors } } = useForm<BioDataFormProps>({
+        defaultValues: bioData
+    })
     const router = useRouter()
 
     async function onSubmit(data: BioDataFormProps) {
         setIsLoading(true)
         if (!dob) {
             toast.error('Please select your Date of Birth')
+            setIsLoading(false)
             return
         }
         data.dob = dob
         data.trackingNumber = generateTrackingNumber()
-        data.userId = userId
+        data.userId = userId as string
         data.page = page
         console.log(data);
         try {
+            //save data to database
             const res = await createDoctorProfile(data)
             setIsLoading(false)
+            // save the data to context api - ToDo
+            setBioData(data)
             if (res.status === 201) {
                 toast.success('Doctor Profile Created Successfully')
                 setTruckingNumber(res.data?.trackingNumber ?? "")
                 setDoctorProfileId(res.data?.id ?? "")
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res.data);
+                //Route to Next Form
             } else {
                 setIsLoading(false)
                 throw new Error('Something went wrong')

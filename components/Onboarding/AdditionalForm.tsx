@@ -33,6 +33,8 @@ export default function AdditionalForm(
                 //extract the profile from data from the update profile 
                 //Send a wellcome Email
                 
+                toast.success('Profile Completed Successfully')
+
                 //Route them to the login page
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res.data);

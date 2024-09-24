@@ -1,9 +1,5 @@
 "use server";
-import EmailTemplate from "../components/Emails/email-template";
 import { prismaClient } from "@/lib/db";
-import { RegisterInputProps, BioDataFormProps } from "@/types/types";
-import { DoctorProfile } from "@prisma/client";
-import bcrypt from "bcrypt";
 import { Resend } from "resend";
 
 export async function createDoctorProfile(formData: any) {
@@ -63,29 +59,29 @@ export async function updateDoctorProfile(id: string | undefined, data: any) {
     }
 }
 
-// export async function getApplicationByTracking(trackingNumber: string) {
-//     if (trackingNumber) {
-//         try {
-//             const doctorProfile = await prismaClient.doctorProfile.findUnique({
-//                 where: {
-//                     trackingNumber,
-//                 },
-//             });
-//             return {
-//                 data: doctorProfile,
-//                 status: 201,
-//                 error: null,
-//             }
-//         } catch (error) {
-//             console.log(error);
-//             return {
-//                 data: null,
-//                 status: 500,
-//                 error: "Something went wrong",
-//             };
-//         }
-//     }
-// }
+export async function getDoctorById(id: string) {
+    if (id) {
+        try {
+            const doctorProfile = await prismaClient.doctorProfile.findUnique({
+                where: {
+                    id,
+                },
+            });
+            return {
+                data: doctorProfile,
+                status: 201,
+                error: null,
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Something went wrong",
+            };
+        }
+    }
+}
 
 export async function getApplicationByTracking(trackingNumber: string) {
     if (trackingNumber) {

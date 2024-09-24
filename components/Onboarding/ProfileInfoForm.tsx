@@ -20,17 +20,23 @@ export default function ProfileInfoForm({
     userId,
     nextPage
 }: StepFormProps) {
-    const [expiry, setExpiry] = React.useState<Date>()
     const [isLoading, setIsLoading] = React.useState(false)
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>()
-    const [profileImage, setProfileImage] = React.useState()
+    const {profileData, setProfileData} = useOnBoardingContext()
+    const initialExpiryDate = profileData.medicalLicenseExpiration
+    const initialProfileImage = profileData.profilePicture
+    const [expiry, setExpiry] = React.useState<Date>(initialExpiryDate)
+    const [profileImage, setProfileImage] = React.useState(initialProfileImage)
     const router = useRouter()
     const { truckingNumber, doctorProfileId, } = useOnBoardingContext()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>({
+        defaultValues: profileData
+    })
 
     async function onSubmit(data: ProfileFormProps) {
         setIsLoading(true)
         if (!expiry) {
             toast.error('Please select your Medical License Expiry')
+            setIsLoading(false)
             return
         }
         data.profilePicture = profileImage
@@ -39,10 +45,13 @@ export default function ProfileInfoForm({
         data.page = page
         console.log(data);
         try {
+            //save data to database
             const res = await updateDoctorProfile(formId, data)
+            // save the data to context api - ToDo
+            setProfileData(data)
             if (res?.status === 201) {
                 setIsLoading(false)
-                toast.success('Profile Updated Successfully')
+                toast.success('Profile Info Updated Successfully')
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res.data);
             } else {

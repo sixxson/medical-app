@@ -33,7 +33,7 @@ export default function PracticeInfo({
         const res = await updateDoctorProfile(formId, data)
         if (res?.status === 201) {
             setIsLoading(false)
-            toast.success('Profile Updated Successfully')
+            toast.success('Practice Info Updated Successfully')
             router.push(`/onboarding/${userId}?page=${nextPage}`)
             console.log(res.data);
         } else {

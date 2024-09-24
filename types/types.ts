@@ -31,7 +31,7 @@ export type BioDataFormProps = {
   firstName: string;
   lastName: string;
   middleName?: string;
-  dob?: Date;
+  dob?: any;
   userId: string | undefined;
   gender: string;
   page: string;
@@ -52,7 +52,7 @@ export type ProfileFormProps = {
   bio: string;
   page: string;
   medicalLicense?: string;
-  medicalLicenseExpiration?: Date;
+  medicalLicenseExpiration?: any;
   yearsOfExperience: number;
 }
 export type EducationFormProps = {

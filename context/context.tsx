@@ -1,4 +1,6 @@
 "use client"
+import { AdditionalFormProps, BioDataFormProps, ContactInfoFormProps, EducationFormProps, PracticeFormProps, ProfileFormProps } from "@/types/types";
+import { init } from "next/dist/compiled/webpack/webpack";
 import { createContext, ReactNode, useContext, useState } from "react";
 // context => useState to golobal Level
 
@@ -19,13 +21,98 @@ interface OnBoardingContext {
     setTruckingNumber: (value: string) => void
     setDoctorProfileId: (value: string) => void
     doctorProfileId: string
+
+    //Track the Form Data
+    bioData: BioDataFormProps
+    profileData: ProfileFormProps
+    contactData: ContactInfoFormProps
+    educationData: EducationFormProps
+    practiceData: PracticeFormProps
+    additionalData: AdditionalFormProps
+    setBioData: (value: BioDataFormProps) => void
+    setProfileData: (value: ProfileFormProps) => void
+    setContactData: (value: ContactInfoFormProps) => void
+    setEducationData: (value: EducationFormProps) => void
+    setPracticeData: (value: PracticeFormProps) => void
+    setAdditionalData: (value: AdditionalFormProps) => void
 }
+
+const initialBioData = {
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    dob: "",
+    userId: "",
+    gender: "",
+    page: "",
+    trackingNumber: "",
+}
+
+const initialProfileData = {
+    profilePicture: "",
+    bio: "",
+    page: "",
+    medicalLicense: "",
+    medicalLicenseExpiration: "",
+    yearsOfExperience: 0,
+}
+
+const initialContactData = {
+    phone: "",
+    email: "",
+    city: "",
+    state: "",
+    country: "",
+    page: "",
+}
+
+const initialEducationData = {
+    medicalSchool: "",
+    graduationYear: 0,
+    primarySpecialization: "",
+    boardCertificates: [],
+    otherSpecialties: [],
+    page: "",
+}
+
+const initialPracticeData = {
+    hospitalName: "",
+    hospitalAddress: "",
+    hospitalContact: "",
+    hospitalEmail: "",
+    hospitalWebsite: "",
+    hospitalHoursOfOperation: "",
+    insuranceAccepted: false,
+    servicesOffered: [],
+    languageSpoken: [],
+    page: "",
+}
+
+const initialAdditionalData = {
+    languages: [],
+    insurance: [],
+    services: [],
+    page: "",
+}
+
 
 const initialData = {
     truckingNumber: "",
-    setTruckingNumber: () => { },
     doctorProfileId: "",
-    setDoctorProfileId: () => { }
+    setTruckingNumber: () => { },
+    setDoctorProfileId: () => { },
+    bioData: initialBioData,
+    profileData: initialProfileData,
+    contactData: initialContactData,
+    educationData: initialEducationData,
+    practiceData: initialPracticeData,
+    additionalData: initialAdditionalData,
+    setBioData: () => { },
+    setProfileData: () => { },
+    setContactData: () => { },
+    setEducationData: () => { },
+    setPracticeData: () => { },
+    setAdditionalData: () => { },
 }
 
 const OnBoardingContext = createContext<OnBoardingContext>(initialData)
@@ -33,12 +120,30 @@ const OnBoardingContext = createContext<OnBoardingContext>(initialData)
 export function OnBoardingContextProvider({ children }: { children: ReactNode }) {
     const [truckingNumber, setTruckingNumber] = useState("")
     const [doctorProfileId, setDoctorProfileId] = useState("")
+    const [bioData, setBioData] = useState<BioDataFormProps>(initialBioData)
+    const [profileData, setProfileData] = useState<ProfileFormProps>(initialProfileData)
+    const [contactData, setContactData] = useState<ContactInfoFormProps>(initialContactData)
+    const [educationData, setEducationData] = useState<EducationFormProps>(initialEducationData)
+    const [practiceData, setPracticeData] = useState<PracticeFormProps>(initialPracticeData)
+    const [additionalData, setAdditionalData] = useState<AdditionalFormProps>(initialAdditionalData)
 
     const contextValues = {
         truckingNumber,
         setTruckingNumber,
         doctorProfileId,
-        setDoctorProfileId
+        setDoctorProfileId,
+        bioData,
+        setBioData,
+        profileData,
+        setProfileData,
+        contactData,
+        setContactData,
+        educationData,
+        setEducationData,
+        practiceData,
+        setPracticeData,
+        additionalData,
+        setAdditionalData,
     }
 
     return (
