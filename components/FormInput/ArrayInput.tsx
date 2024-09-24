@@ -1,5 +1,4 @@
 import { Pencil, Plus, X } from 'lucide-react'
-import { register } from 'module';
 import React from 'react'
 
 export type ArrayInputProps = {
@@ -7,14 +6,12 @@ export type ArrayInputProps = {
     items: string[];
     itemTitle: string;
     className?: string;
-    register: any;
 };
 export default function ArrayInput({
     setItems,
     items = [],
     itemTitle,
     className = "col-span-full",
-    register,
 }: ArrayInputProps) {
 
     const [item, setItem] = React.useState("")
@@ -40,7 +37,6 @@ export default function ArrayInput({
                             <Pencil size={18} className='text-gray-500 dark:text-gray-400' />
                         </div>
                         <input
-                            {...(item ? register(`${itemTitle}[${items.length}]`, { required: true }) : {})}
                             value={item}
                             onChange={(e) => setItem(e.target.value)}
                             type="text"
@@ -62,10 +58,11 @@ export default function ArrayInput({
                         <Plus size={18} className='me-2' />
                         Add
                     </button>
-                    <button
+                    <button 
                         type="button"
                         onClick={() => setShowTagForm(false)}
                         className='ml-3 shrink-0 w-8 h-8 bg-red-200 rounded-full flex items-center justify-center'
+                        title="Close"
                     >
                         <X size={18} className='text-red-700' />
                     </button>
@@ -88,6 +85,7 @@ export default function ArrayInput({
                 {items.map((item, i) => {
                     return (
                         <div
+                            
                             onClick={() => removeItem(i)}
                             key={i}
                             className='bg-gray-100 dark:bg-blue-400 text-red-900 dark:text-gray-50 px-4 py-2 

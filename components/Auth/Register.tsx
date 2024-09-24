@@ -12,8 +12,6 @@ import Image from "next/image"
 import TextInput from "../FormInput/TextInput"
 import { RegisterInputProps } from "@/types/types"
 import { createUser } from "@/actions/users"
-import { UserRole } from "@prisma/client"
-
 
 export const description =
     "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account."

@@ -116,7 +116,7 @@ export default function Footer() {
             <div className="gap-6 justify-between md:flex">
                 <div className="flex-1">
                     <div className="max-w-xs">
-                        <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="w-20" />
+                        <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt='' className="w-20" />
                         <p className="leading-relaxed mt-2 text-[15px]">
                             Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
                         </p>

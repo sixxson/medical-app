@@ -40,7 +40,7 @@ import {
 export const description =
     "A product edit page. The product edit page has a form to edit the product details, stock, product category, product status, and product images. The product edit page has a sidebar navigation and a main content area. The main content area has a form to edit the product details, stock, product category, product status, and product images. The sidebar navigation has links to product details, stock, product category, product status, and product images."
 
-export default function EditProducts( ) {
+export default function EditProducts() {
     return (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
@@ -321,7 +321,7 @@ export default function EditProducts( ) {
                                         width="300"
                                     />
                                     <div className="grid grid-cols-3 gap-2">
-                                        <button>
+                                        <button title="Product image">
                                             <Image
                                                 alt="Product image"
                                                 className="aspect-square w-full rounded-md object-cover"
@@ -330,7 +330,7 @@ export default function EditProducts( ) {
                                                 width="84"
                                             />
                                         </button>
-                                        <button>
+                                        <button title="Product image">
                                             <Image
                                                 alt="Product image"
                                                 className="aspect-square w-full rounded-md object-cover"

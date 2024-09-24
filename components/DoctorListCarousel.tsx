@@ -25,7 +25,7 @@ export default function DoctorsListCarousel({
             slidesToSlide: 2, // optional, default to 1.
         },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: { max: 375, min: 0 },
             items: 2,
             slidesToSlide: 1, // optional, default to 1.
         },
@@ -45,9 +45,10 @@ export default function DoctorsListCarousel({
             transitionDuration={1000}
             containerClass="carousel-container"
             removeArrowOnDeviceType={["tablet", "mobile"]}
-            // deviceType={}
+            // deviceType={""}
             dotListClass="custom-dot-list-style"
             itemClass="px-4"
+            
         >
             {doctors.map((doctor: any, i: number) => {
                 return <DoctorCard isInPreson={isInPreson} key={i} />;

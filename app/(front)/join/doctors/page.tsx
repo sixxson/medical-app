@@ -14,30 +14,18 @@ export default function page() {
     "Get paid directly from patients",
   ]
 
-  const steps = [
-    "List your practice",
-    "Create competitive offerings",
-    "Start seeing patients",
-  ]
-
-  const whyUs = [
-    "It’s free to join with no membership fees or time commitments.",
-    "We help you tailor your offerings to attract new patients and build your practice.",
-    "Patients can book appointments with you minutes after your profile goes live."
-  ]
-
   const cards = [
     {
       title: 'List your practice',
       description: "Start a new chapter in your career with Medical App",
-      link: '/',
+      link: '/register?role=DOCTOR&plan=free',
       linkTitle: 'Start a new application'
     },
     {
       title: 'Resume Application',
       description: `Pick up where you left off and complete your onboarding
       process. Schedule for Physical Approval.`,
-      link: '/',
+      link: '/onboarding/resume',
       linkTitle: 'Continue Application'
     },
     {
@@ -124,7 +112,7 @@ export default function page() {
             alt=''
             width={1170}
             height={850}
-            className='w-full rounded' />
+            className='w-full rounded h-full object-fill' />
         </div>
       </section>
       <section className='px-4 py-20'>
@@ -134,24 +122,13 @@ export default function page() {
             alt=''
             width={1170}
             height={850}
-            className='w-full object-cover rounded hidden md:block ' />
+            className='w-full object-cover rounded hidden md:block h-full' />
           <div className=''>
             <h2 className='md:text-4xl text-2xl'>
               Join Sesame to increase your 
               <span className='text-blue-600 font-semibold'> revenue</span> today.
             </h2>
-            {/* <div className='py-4'>
-              {
-                steps.map((step, i) => {
-                  return (
-                    <p key={i} className='flex items-center'>
-                      <Check size={24} className='text-blue-600 flex-shrink-0 ' />
-                      <span>{step}</span>
-                    </p>
-                  )
-                })}
-            </div> */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mt-2">
               {
                 cards.map((card, i) => {
                   return (

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Icons } from "@/components/icons"
+import { Microscope } from "lucide-react"
 
 export default function MainNav() {
     const pathname = usePathname()
@@ -12,9 +12,9 @@ export default function MainNav() {
     return (
         <div className="mr-4 hidden md:flex">
             <Link href="/" className="mr-4 flex items-center space-x-2 lg:mr-6">
-                <Icons.logo className="h-6 w-6" />
+                <Microscope className="h-6 w-6 space-x-reverse" />
                 <span className="hidden font-bold lg:inline-block">
-                    {siteConfig.name}
+                    B0oKing D0ctoR
                 </span>
             </Link>
             <nav className="flex items-center gap-4 text-sm lg:gap-6">

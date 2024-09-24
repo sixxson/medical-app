@@ -1,12 +1,10 @@
-import { AuthOptions, NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prismaClient } from "@/lib/db";
-// import GoogleProvider from "next-auth/providers/google";
-// import EmailProvider from "next-auth/providers/email";
 import type { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-// more providers at https://next-auth.js.org/providers
+
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prismaClient) as Adapter,
     secret: process.env.NEXTAUTH_SECRET,

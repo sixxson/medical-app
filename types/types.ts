@@ -24,6 +24,7 @@ export type StepFormProps = {
   description: string;
   userId?: string;
   nextPage?: string;
+  formId?: string;
 };
 
 export type BioDataFormProps = {
@@ -39,7 +40,7 @@ export type BioDataFormProps = {
 
 export type ContactInfoFormProps = {
   phone: string;
-  address: string;
+  email: string;
   city: string;
   state: string;
   country: string;
@@ -50,16 +51,16 @@ export type ProfileFormProps = {
   profilePicture?: string;
   bio: string;
   page: string;
-  medicalLicense: string;
+  medicalLicense?: string;
   medicalLicenseExpiration?: Date;
-  yearsOfExperience: string;
+  yearsOfExperience: number;
 }
 export type EducationFormProps = {
   medicalSchool: string;
   graduationYear: number;
   primarySpecialization: string;
-  otherSpecialties: string[];
   boardCertificates: string[];
+  otherSpecialties: string[];
   page: string;
 };
 

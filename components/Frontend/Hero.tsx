@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import TransitionText from "./TransitionText";
-import Seachbar from "./Seachbar";
 import { CommandMenu } from "../command-menu";
 
 const Hero = () => {

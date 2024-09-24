@@ -10,7 +10,7 @@ export default function DoctorCard({
 
     const timeStamps = [
         {
-            time: "9:00 ",
+            time: "9:00",
             period: "Am"
         },
         {
@@ -42,21 +42,21 @@ export default function DoctorCard({
     return (
         <div
             className="border border-gray-200 dark:border-gray-500 bg-white dark:bg-slate-800 inline-flex flex-col
-            py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all">
+            py-8 px-6 rounded-md hover:border-gray-400 duration-300 transition-all justify-center items-center">
             <Link
                 href="/doctors/slug">
                 <h2 className="uppercase font-bold text-2xl tracking-widest">Name Doctor</h2>
                 {isInPreson &&
                 <p className="py-3">Description</p>  
                 }
-                <div className="flex items-center gap-4 py-4">
+                <div className="items-center gap-4 py-4 gird grid-cols-1 sm:grid-cols-2">
                     <div className="relative">
                         <Image
                             src="/Something.jpg"
                             alt="doctor"
                             width={243}
                             height={207}
-                            className="w-24 h-24 rounded-full object-cover"
+                            className="w-24 h-24 rounded-full object-cover overflow-hidden"
                         />
                         {!isInPreson &&
                             <p 
@@ -84,11 +84,11 @@ export default function DoctorCard({
                     </div>
                     <div className="grid grid-cols-3 gap-2 py-3">
                         {timeStamps.slice(0, 5).map((item, index) => (
-                            <Link className="px-3 py-4 text-center text-white 
-                            rounded-md bg-purple-700 text-sm hover:bg-purple-800"
+                            <Link className="px-5 py-4 text-center text-white 
+                            rounded-md bg-purple-700 text-sm hover:bg-purple-800 flex items-center justify-center"
                                 href="/doctors/slug"
                                 key={index}>
-                                {item.time}
+                                {item.time}{" "}
                                 {item.period}
                             </Link>
                         ))}
@@ -96,7 +96,9 @@ export default function DoctorCard({
                             className="px-3 py-4 text-center text-sm text-purple-500 
                             rounded-md bg-purple-100 truncate hover:border-purple-500"
                             href="#">
-                            Show More
+                            Show 
+                            <br />
+                            More
                         </Link>
                     </div>
                 </h3>

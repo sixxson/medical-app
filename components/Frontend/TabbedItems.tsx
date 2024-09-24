@@ -4,7 +4,6 @@ import { Activity, ListOrdered, Microscope, Stethoscope, Syringe } from "lucide-
 import ServiceList from "./Services/ServiceList";
 import ListCard from "./Doctor/LinkCard";
 
-
 export default function TabbedItems() {
 
   const services = [

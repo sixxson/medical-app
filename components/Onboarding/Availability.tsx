@@ -4,16 +4,23 @@ import React from "react"
 import { useForm } from 'react-hook-form'
 import TextInput from "../FormInput/TextInput"
 import { ProfileFormProps, StepFormProps } from "@/types/types"
-import TextAreaInput from "../FormInput/TextAreaInput"
 import RadioInput from "../FormInput/RadioInput"
 import { Checkbox } from "../ui/checkbox"
-import { Label } from "../ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { Ghost, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { updateDoctorProfile } from "@/actions/onboarding"
+import toast from "react-hot-toast"
 
-export default function Availability({ page, title, description }: StepFormProps) {
+export default function Availability({ 
+    page, 
+    title, 
+    description, 
+    formId,
+    userId,
+    nextPage }: StepFormProps) {
+    const router = useRouter()
     const [isLoading, setIsLoading] = React.useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>()
     const availabilityOptions = [
@@ -27,10 +34,26 @@ export default function Availability({ page, title, description }: StepFormProps
             value: 'specific'
         }
     ]
+
     async function onSubmit(data: ProfileFormProps) {
-        data.page = page
+        setIsLoading(true)
         console.log(data);
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                setIsLoading(false)
+                toast.success('Profile Updated Successfully')
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res.data);
+            } else {
+                setIsLoading(false)
+                throw new Error('Something went wrong')
+            }
+        } catch (error) {
+            setIsLoading(false)
+        }
     }
+
     return (
         <div className="w-full">
             <div className=" text-center border border-gray-200 pb-4">

@@ -1,6 +1,6 @@
 "use client"
-import SubmitButton from "../FormInput/SubmitButton"
 import React from "react"
+import SubmitButton from "../FormInput/SubmitButton"
 import { useForm } from 'react-hook-form'
 import TextInput from "../FormInput/TextInput"
 import { BioDataFormProps, StepFormProps } from "@/types/types"
@@ -10,6 +10,7 @@ import toast from "react-hot-toast"
 import { generateTrackingNumber } from "@/lib/generateTracking"
 import { createDoctorProfile } from "@/actions/onboarding"
 import { useRouter } from "next/navigation"
+import { useOnBoardingContext } from "@/context/context"
 
 export default function BioDataForm(
     {
@@ -20,10 +21,15 @@ export default function BioDataForm(
         nextPage
     }: StepFormProps
 ) {
+    // Get Context Data
+    const {
+        setTruckingNumber,
+        setDoctorProfileId
+    } = useOnBoardingContext()
     const [dob, setDOB] = React.useState<Date>()
     const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
     const [isLoading, setIsLoading] = React.useState(false)
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<BioDataFormProps>()
+    const { register, handleSubmit, formState: { errors } } = useForm<BioDataFormProps>()
     const router = useRouter()
 
     async function onSubmit(data: BioDataFormProps) {
@@ -33,15 +39,23 @@ export default function BioDataForm(
             return
         }
         data.dob = dob
-        data.page = page
-        data.userId = userId
         data.trackingNumber = generateTrackingNumber()
+        data.userId = userId
+        data.page = page
         console.log(data);
         try {
-            const newProfile = await createDoctorProfile(data)
+            const res = await createDoctorProfile(data)
             setIsLoading(false)
-            router.push(`/onboarding/id=${userId}?page=${nextPage}&&tracking=${data.trackingNumber}`)
-            console.log(newProfile);
+            if (res.status === 201) {
+                toast.success('Doctor Profile Created Successfully')
+                setTruckingNumber(res.data?.trackingNumber ?? "")
+                setDoctorProfileId(res.data?.id ?? "")
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res.data);
+            } else {
+                setIsLoading(false)
+                throw new Error('Something went wrong')
+            }
         } catch (error) {
             setIsLoading(false)
             console.log(error);
@@ -77,7 +91,7 @@ export default function BioDataForm(
                         name='lastName'
                         type='text'
                         errors={errors}
-                        placeholder='Van A'
+                        placeholder='A'
                         className="col-span-full sm:col-span-1"
                     />
                     <TextInput
@@ -87,7 +101,7 @@ export default function BioDataForm(
                         type='text'
                         isRequired={false}
                         errors={errors}
-                        placeholder='abc@xyz.com'
+                        placeholder='Van'
                         className="col-span-full sm:col-span-1"
                     />
                     <DatePickerInput
@@ -108,6 +122,7 @@ export default function BioDataForm(
                 <div className="mt-8 flex justify-center items-center">
                     <SubmitButton
                         title='Save and Continue'
+                        isLoading={isLoading}
                         loadingTitle='Saving please wait ...'
                     />
                 </div>

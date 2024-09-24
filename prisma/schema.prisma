@@ -16,16 +16,16 @@ datasource db {
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
+  id_token          String? @db.String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
-  expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
   session_state     String?
+  expires_at        Int?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -36,8 +36,8 @@ model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
   userId       String   @db.ObjectId
-  expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
 }
 
 enum UserRole {
@@ -48,63 +48,70 @@ enum UserRole {
 
 model User {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
   email         String         @unique
+  name          String
   phone         String
   emailVerified DateTime?
   image         String?
-  role          UserRole       @default(USER)
   plan          String?
   password      String
+  token         Int
   accounts      Account[]
   sessions      Session[]
+  doctorProfile DoctorProfile?
+  role          UserRole       @default(USER)
   isVerfied     Boolean        @default(false)
-  token         Int
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  doctorProfile DoctorProfile?
 }
 
 model DoctorProfile {
-  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId                   String    @unique @db.ObjectId
-  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trackingNumber           String
-  firstName                String
-  lastName                 String
-  middleName               String?
-  dob                      DateTime?
-  gender                   String
-  page                     String
-  profilePicture           String?
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId         String @unique @db.ObjectId
+  trackingNumber String @unique
+//bio-data
+  firstName  String
+  lastName   String
+  middleName String?
+  dob        DateTime
+  gender     String
+//contact
+  email   String?
+  phone   String?
+  country String?
+  city    String?
+  state   String?
+//profile
   bio                      String?
-  medcalLicense            String?
-  medicallicenseExpiry     DateTime?
+  profilePicture           String?
+  medicalLicense           String?
+  medicalLicenseExpiration DateTime?
   yearsOfExperience        Int?
-  email                    String?
-  phone                    String?
-  country                  String?
-  city                     String?
-  state                    String?
+//education
   medicalSchool            String?
   graduationYear           String?
   primarySpecialization    String?
   otherSpecialties         String[]
   boardCertificates        String[]
+//practice
   hospitalName             String?
   hospitalAddress          String?
   hospitalContact          String?
   hospitalEmail            String?
   hospitalWebsite          String?
   hospitalHoursOfOperation Int?
-  servicesOffered          String[]
   insuranceAccepted        String?
+  servicesOffered          String[]
+  languageSpoken           String[]
+//additional
   educationHistory         String?
   research                 String?
   accomplishments          String?
   additionDocs             String[]
-  // languageSpoken           String[]
+//availability
 
+  page                     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

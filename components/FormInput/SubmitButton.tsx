@@ -17,7 +17,7 @@ export default function SubmitButton({
 }: SubmitButtonProps) {
 
     return (
-        <div>
+        <div className='w-fit'>
             {isLoading
                 ? (
                     <Button disabled className='w-full'>

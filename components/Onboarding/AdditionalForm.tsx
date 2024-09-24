@@ -2,27 +2,49 @@
 import SubmitButton from "../FormInput/SubmitButton"
 import React from "react"
 import { useForm } from 'react-hook-form'
-import TextInput from "../FormInput/TextInput"
 import { AdditionalFormProps, StepFormProps } from "@/types/types"
-import { DatePickerInput } from "../FormInput/DatePickerInput"
-import RadioInput from "../FormInput/RadioInput"
 import toast from "react-hot-toast"
 import MultipleFileInput from "../FormInput/MultipleFileInput"
-import { set } from "date-fns"
 import TextAreaInput from "../FormInput/TextAreaInput"
+import { updateDoctorProfile } from "@/actions/onboarding"
+import { useRouter } from "next/navigation"
 
 
-export default function AdditionalForm({ page, title, description }: StepFormProps) {
+export default function AdditionalForm(
+    { 
+    page, 
+    title, 
+    description, 
+    formId,
+    userId,
+    nextPage
+}: StepFormProps) {
     const [additionalDocs, setAdditionalDocs] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(false)
+    const router = useRouter()
     const { register, handleSubmit, reset, formState: { errors } } = useForm<AdditionalFormProps>()
 
     async function onSubmit(data: AdditionalFormProps) {
-
         setIsLoading(true)
-        data.page = page
         console.log(data);
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                //extract the profile from data from the update profile 
+                //Send a wellcome Email
+                
+                //Route them to the login page
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res.data);
+            } else {
+                setIsLoading(false)
+                throw new Error('Something went wrong')
+            }
+        } catch (error) {
+            setIsLoading(false)
+        }
     }
+
     return (
         <div className="w-full">
             <div className=" text-center border border-gray-200 pb-4 dark:text-slate-900 ">

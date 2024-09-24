@@ -1,8 +1,8 @@
 import { UploadDropzone } from "@/utils/uploadthing";
 import { File, Pencil, XCircle } from "lucide-react";
-import Image from "next/image";
 import toast from "react-hot-toast";
 import React from "react";
+import { Button } from "../ui/button";
 
 type MultipleImageInputProps = {
     label: string;
@@ -31,7 +31,6 @@ export default function MultipleFileInput(
             (file, index) => index !== fileIndex);
         setFiles(updatedFiles);
     }
-    console.log(files);
     return (
         <div className={className}>
             <div className="flex justify-between items-center mb-4">
@@ -55,11 +54,12 @@ export default function MultipleFileInput(
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {files.map((file, i) => (
                         <div key={i} className="relative">
-                            <button
+                            <Button
+                                type="button"
                                 onClick={() => handleImageRemove(i)}
                                 className="absolute -top-4 -right-2 rounded-full p-1 text-red-700">
                                 <XCircle size={24} />
-                            </button>
+                            </Button>
                             <div className="py-2 px-6 border border-slate-200 text-gray-800 bg-white 
                             rounded-md dark:text-slate-50 dark:bg-slate-800 overflow-auto flex">
                                 <File size={24} className="text-gray-800 dark:text-slate-50 mr-2" />

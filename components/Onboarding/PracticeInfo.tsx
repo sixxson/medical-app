@@ -5,26 +5,45 @@ import SubmitButton from '../FormInput/SubmitButton'
 import TextInput from '../FormInput/TextInput'
 import ArrayInput from '../FormInput/ArrayInput'
 import ShalSelectionInput from '../FormInput/ShadSelectionInput'
-
+import { useRouter } from 'next/navigation'
+import { updateDoctorProfile } from '@/actions/onboarding'
+import toast from 'react-hot-toast'
 
 export default function PracticeInfo({
   page,
   title,
   description,
+  formId,
+  userId,
+  nextPage
 }: StepFormProps) {
   const [isLoading, setIsLoading] = React.useState(false)
-  const insuranceOption = [{label:"Choose your Option", value:"none"}, { label: "Yes", value: "yes" }, { label: "No", value: "no" }]
+  const insuranceOption = [{ label: "Choose your Option", value: "none" }, { label: "Yes", value: "yes" }, { label: "No", value: "no" }]
   const { register, handleSubmit, reset, formState: { errors } } = useForm<PracticeFormProps>()
   const [services, setServices] = React.useState([])
   const [languages, setLanguages] = React.useState([])
   const [insuranceAccepted, setInsuranceAccepted] = React.useState('')
+  const router = useRouter()
 
   async function onSubmit(data: PracticeFormProps) {
-    data.page = page
-    console.log('Submitted Data:', data);
-    // console.log('Services:', services);
-    // console.log('Languages:', languages);
-  }
+    setIsLoading(true)
+    console.log(data);
+    data.servicesOffered = services
+    try {
+        const res = await updateDoctorProfile(formId, data)
+        if (res?.status === 201) {
+            setIsLoading(false)
+            toast.success('Profile Updated Successfully')
+            router.push(`/onboarding/${userId}?page=${nextPage}`)
+            console.log(res.data);
+        } else {
+            setIsLoading(false)
+            throw new Error('Something went wrong')
+        }
+    } catch (error) {
+        setIsLoading(false)
+    }
+}
 
   return (
     <div className="w-full">
@@ -91,12 +110,12 @@ export default function PracticeInfo({
             label='Hospital Hours of Operation'
             register={register}
             name='hospitalHoursOfOperation'
-            type='text'
+            type='number'
             errors={errors}
             placeholder='Enter your Hospital Hours of Operation eg 5'
             className="col-span-full sm:col-span-1"
           />
-            <ShalSelectionInput
+          <ShalSelectionInput
             option={insuranceOption}
             label=" Insurance Accepted"
             OptionTitle="insuranceAccepted"
@@ -106,14 +125,12 @@ export default function PracticeInfo({
             name="insuranceAccepted"
           />
           <ArrayInput
-          register={register}
             items={services}
             setItems={setServices}
             itemTitle='Add Hospital Services'
             className="col-span-full"
           />
-          <ArrayInput 
-            register={register}
+          <ArrayInput
             items={languages}
             setItems={setLanguages}
             itemTitle='Add Languages Spoken at the Hospital'

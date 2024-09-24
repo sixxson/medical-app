@@ -3,15 +3,38 @@ import { ContactInfoFormProps, StepFormProps } from '@/types/types'
 import { useForm } from 'react-hook-form'
 import TextInput from '../FormInput/TextInput'
 import SubmitButton from '../FormInput/SubmitButton'
+import { updateDoctorProfile } from '@/actions/onboarding'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
-export default function ContactInfo({ page, title, description }: StepFormProps) {
+export default function ContactInfo({ 
+    page, 
+    title, 
+    description, 
+    formId,
+    userId,
+    nextPage }: StepFormProps) {
     const [isLoading, setIsLoading] = React.useState(false)
+    const router = useRouter()
     const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactInfoFormProps>()
 
     async function onSubmit(data: ContactInfoFormProps) {
         setIsLoading(true)
-        reset()
         console.log(data);
+        try {
+            const res = await updateDoctorProfile(formId, data)
+            if (res?.status === 201) {
+                setIsLoading(false)
+                toast.success('Profile Updated Successfully')
+                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                console.log(res.data);
+            } else {
+                setIsLoading(false)
+                throw new Error('Something went wrong')
+            }
+        } catch (error) {
+            setIsLoading(false)
+        }
     }
     return (
         <div className="w-full">

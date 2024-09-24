@@ -6,20 +6,44 @@ import TextInput from '../FormInput/TextInput'
 import SubmitButton from '../FormInput/SubmitButton'
 import SelectionInput from '../FormInput/SelectionInput'
 import ArrayInput from '../FormInput/ArrayInput'
-import MultipleImageInput from '../FormInput/MultipleFileInput'
-import { url } from 'inspector'
+import MultipleImageInput, { File } from '../FormInput/MultipleFileInput'
+import { useRouter } from 'next/navigation';
+import { updateDoctorProfile } from '@/actions/onboarding';
+import toast from 'react-hot-toast';
 
-export default function EducationInfo({ page, title, description }: StepFormProps) {
+export default function EducationInfo({
+  page,
+  title,
+  description,
+  formId,
+  userId,
+  nextPage }: StepFormProps) {
 
   const [isLoading, setIsLoading] = React.useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm<EducationFormProps>()
-  const [otherSpecialization, setOtherSpecialization] = React.useState([])
-  const [docs, setDocs] = React.useState([])
+  const [otherSpecialties, setOtherSpecialties] = React.useState([])
+  const router = useRouter()
+  const [docs, setDocs] = React.useState<File[]>([])
 
   async function onSubmit(data: EducationFormProps) {
     setIsLoading(true)
-    reset()
     console.log(data);
+    data.otherSpecialties = otherSpecialties
+    data.boardCertificates = docs.map((doc) => doc.url)
+    try {
+      const res = await updateDoctorProfile(formId, data);
+      if (res?.status === 201) {
+        setIsLoading(false)
+        toast.success('Profile Updated Successfully')
+        router.push(`/onboarding/${userId}?page=${nextPage}`)
+        console.log(res.data);
+      } else {
+        setIsLoading(false)
+        throw new Error('Something went wrong')
+      }
+    } catch (error) {
+      setIsLoading(false)
+    }
   }
   return (
     <div className="w-full">
@@ -56,7 +80,7 @@ export default function EducationInfo({ page, title, description }: StepFormProp
           <SelectionInput
             label='Select Your Primary Specializations'
             register={register}
-            name='country'
+            name='primarySpecialization'
             option={[
               { label: "Cardiology", value: "cardiology" },
               { label: "Dermatology", value: "dermatology" },
@@ -66,9 +90,8 @@ export default function EducationInfo({ page, title, description }: StepFormProp
             className="col-span-full sm:col-span-1"
           />
           <ArrayInput
-            register={register}
-            items={otherSpecialization}
-            setItems={setOtherSpecialization}
+            items={otherSpecialties}
+            setItems={setOtherSpecialties}
             itemTitle='Select Your Secondary Specializations'
           />
           <MultipleImageInput

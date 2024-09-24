@@ -5,18 +5,20 @@ import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import BioDataForm from './BioDataForm';
 import ContactInfo from './ContactInfo';
-import ProfessionInfo from './ProfessionInfo';
 import ProfileInfoForm from './ProfileInfoForm';
 import EducationInfo from './EducationInfo';
 import PracticeInfo from './PracticeInfo';
 import AdditionalForm from './AdditionalForm';
 import Availability from './Availability';
+import { useOnBoardingContext } from '@/context/context';
 
 export default function OnboardingSteps({ id }: { id: string }) {
-
     const parmas = useSearchParams()
     const page = parmas.get('page') ?? 'bio-data'
-    console.log(page);
+    const {
+        truckingNumber,
+        doctorProfileId,
+    } = useOnBoardingContext()
     const steps = [
         {
             title: 'Bio Data',
@@ -27,6 +29,7 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 description='Please fill in your Bio Data Info '
                 page={page}
                 nextPage='profile'
+                formId={doctorProfileId}
             />
         },
         {
@@ -37,6 +40,8 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 description='Please fill in your Profile Information'
                 page={page}
                 nextPage='contact'
+                userId={id}
+                formId={doctorProfileId}
             />
         },
         {
@@ -47,6 +52,8 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 description='Please fill in your Contact Information'
                 page={page}
                 nextPage='education'
+                userId={id}
+                formId={doctorProfileId}
             />
         },
         {
@@ -57,6 +64,8 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 description='Please fill in your Education Information'
                 page={page}
                 nextPage='practice'
+                userId={id}
+                formId={doctorProfileId}
             />
         },
         {
@@ -67,6 +76,8 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 description='Please fill in your Practice Information'
                 page={page}
                 nextPage='additional'
+                userId={id}
+                formId={doctorProfileId}
             />
         },
         {
@@ -76,22 +87,25 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 title='Additional Information'
                 description='Please fill in your Additional Information'
                 page={page}
-                nextPage='availability'
+                nextPage='final'
+                userId={id}
+                formId={doctorProfileId}
             />
         },
-        {
-            title: 'Availability',
-            page: 'availability',
-            component: <Availability
-                title='Availability'
-                description='Please fill in your Availability Information'
-                page={page}
-            />
-        },
+        // {
+        //     title: 'Availability',
+        //     page: 'availability',
+        //     component: <Availability
+        //         title='Availability'
+        //         description='Please fill in your Availability Information'
+        //         page={page}
+        //         userId={id}
+        //         formId={doctorProfileId}
+        //     />
+        // },
     ]
     const currentStep = steps.find(step => step.page === page)
-    console.log(currentStep)
-
+    console.log(currentStep);
     return (
         <div className='grid grid-cols-12 mx-auto rounded-lg shadow-inner overflow-hidden
             border border-slate-200 min-h-screen bg-slate-100 '>
@@ -111,6 +125,11 @@ export default function OnboardingSteps({ id }: { id: string }) {
                 }
             </div>
             <div className="col-span-full sm:col-span-9 bg-slate-100 p-4">
+                <p className='border-b border-gray-200 text-teal-400'>
+                    Your this Trucking Number is
+                    <span className='font-bold'>{truckingNumber}</span>
+                    <span className='text-sm'>( Use this to check status or resume application)</span>
+                </p>
                 {currentStep?.component}
             </div>
         </div>
