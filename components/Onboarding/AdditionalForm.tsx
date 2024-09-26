@@ -4,37 +4,51 @@ import React from "react"
 import { useForm } from 'react-hook-form'
 import { AdditionalFormProps, StepFormProps } from "@/types/types"
 import toast from "react-hot-toast"
-import MultipleFileInput from "../FormInput/MultipleFileInput"
+import MultipleFileInput, { File } from "../FormInput/MultipleFileInput"
 import TextAreaInput from "../FormInput/TextAreaInput"
 import { updateDoctorProfile } from "@/actions/onboarding"
 import { useRouter } from "next/navigation"
-
+import { useOnBoardingContext } from "@/context/context"
 
 export default function AdditionalForm(
-    { 
-    page, 
-    title, 
-    description, 
-    formId,
-    userId,
-    nextPage
-}: StepFormProps) {
-    const [additionalDocs, setAdditionalDocs] = React.useState([])
+    {
+        page,
+        title,
+        description,
+        formId,
+        userId,
+        nextPage
+    }: StepFormProps) {
+        const router = useRouter()
     const [isLoading, setIsLoading] = React.useState(false)
-    const router = useRouter()
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<AdditionalFormProps>()
+    const { additionalData, setAdditionalData, saveDbData } = useOnBoardingContext()
+    const initialAdditionalData = additionalData.additionDocs || saveDbData.additionDocs
+    const [additionalDocs, setAdditionalDocs] = React.useState<File[]>(initialAdditionalData)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AdditionalFormProps>({
+        defaultValues: {
+            educationHistory: additionalData.educationHistory || saveDbData.educationHistory,
+            research: additionalData.educationHistory || saveDbData.educationHistory,
+            accomplishments: additionalData.educationHistory || saveDbData.educationHistory,
+            additionDocs: additionalData.additionDocs || saveDbData.additionDocs,
+            page: additionalData.educationHistory || saveDbData.educationHistory,
+        }
+    })
 
     async function onSubmit(data: AdditionalFormProps) {
         setIsLoading(true)
+        data.additionDocs = additionalDocs.map((additionalDoc) => additionalDoc.url)
         console.log(data);
         try {
+            //save data to database
+            setIsLoading(false)
             const res = await updateDoctorProfile(formId, data)
+            setAdditionalData(data)
             if (res?.status === 201) {
+                setIsLoading(false)
                 //extract the profile from data from the update profile 
                 //Send a wellcome Email
-                
-                toast.success('Profile Completed Successfully')
 
+                toast.success('Profile Completed Successfully')
                 //Route them to the login page
                 router.push(`/onboarding/${userId}?page=${nextPage}`)
                 console.log(res.data);

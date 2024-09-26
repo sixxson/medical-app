@@ -108,7 +108,7 @@ export default function page() {
             </div>
           </div>
           <Image
-            src='/JettValorant.jpg'
+            src='/image/JettValorant.jpg'
             alt=''
             width={1170}
             height={850}
@@ -118,7 +118,7 @@ export default function page() {
       <section className='px-4 py-20'>
         <div className='max-w-6xl mx-auto gap-3 grid grid-cols-1 md:grid-cols-2'>
           <Image
-            src='/JettValorant.jpg'
+            src='/image/JettValorant.jpg'
             alt=''
             width={1170}
             height={850}

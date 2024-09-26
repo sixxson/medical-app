@@ -59,7 +59,7 @@ export type EducationFormProps = {
   medicalSchool: string;
   graduationYear: number;
   primarySpecialization: string;
-  boardCertificates: string[];
+  boardCertificates: any;
   otherSpecialties: string[];
   page: string;
 };
@@ -70,9 +70,9 @@ export type PracticeFormProps = {
   hospitalContact: string;
   hospitalEmail: string;
   hospitalWebsite: string;
-  hospitalHoursOfOperation: string;
-  insuranceAccepted: boolean;
-  servicesOffered: string[];
+  hospitalHoursOfOperation: number;
+  insuranceAccepted: string;
+  servicesOffered: any;
   languageSpoken: string[];
   page: string;
 }
@@ -81,6 +81,6 @@ export type AdditionalFormProps = {
   educationHistory: string;
   research: string;
   accomplishments: string;
-  additionDocs: string[];
+  additionDocs: any;
   page: string;
 }

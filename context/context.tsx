@@ -1,6 +1,6 @@
 "use client"
 import { AdditionalFormProps, BioDataFormProps, ContactInfoFormProps, EducationFormProps, PracticeFormProps, ProfileFormProps } from "@/types/types";
-import { init } from "next/dist/compiled/webpack/webpack";
+import { DoctorProfile } from "@prisma/client";
 import { createContext, ReactNode, useContext, useState } from "react";
 // context => useState to golobal Level
 
@@ -18,9 +18,9 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface OnBoardingContext {
     truckingNumber: string
+    doctorProfileId: string
     setTruckingNumber: (value: string) => void
     setDoctorProfileId: (value: string) => void
-    doctorProfileId: string
 
     //Track the Form Data
     bioData: BioDataFormProps
@@ -29,6 +29,8 @@ interface OnBoardingContext {
     educationData: EducationFormProps
     practiceData: PracticeFormProps
     additionalData: AdditionalFormProps
+    saveDbData: any
+    setSaveDbData: (data: any) => void
     setBioData: (value: BioDataFormProps) => void
     setProfileData: (value: ProfileFormProps) => void
     setContactData: (value: ContactInfoFormProps) => void
@@ -81,17 +83,18 @@ const initialPracticeData = {
     hospitalContact: "",
     hospitalEmail: "",
     hospitalWebsite: "",
-    hospitalHoursOfOperation: "",
-    insuranceAccepted: false,
+    hospitalHoursOfOperation: 0,
+    insuranceAccepted: "",
     servicesOffered: [],
     languageSpoken: [],
     page: "",
 }
 
 const initialAdditionalData = {
-    languages: [],
-    insurance: [],
-    services: [],
+    educationHistory: "",
+    research: "",
+    accomplishments: "",
+    additionDocs: [],
     page: "",
 }
 
@@ -101,12 +104,16 @@ const initialData = {
     doctorProfileId: "",
     setTruckingNumber: () => { },
     setDoctorProfileId: () => { },
+
+    //Track the Form Data
     bioData: initialBioData,
     profileData: initialProfileData,
     contactData: initialContactData,
     educationData: initialEducationData,
     practiceData: initialPracticeData,
     additionalData: initialAdditionalData,
+    saveDbData: [],
+    setSaveDbData: () => { },
     setBioData: () => { },
     setProfileData: () => { },
     setContactData: () => { },
@@ -118,31 +125,34 @@ const initialData = {
 const OnBoardingContext = createContext<OnBoardingContext>(initialData)
 
 export function OnBoardingContextProvider({ children }: { children: ReactNode }) {
-    const [truckingNumber, setTruckingNumber] = useState("")
-    const [doctorProfileId, setDoctorProfileId] = useState("")
+    const [truckingNumber, setTruckingNumber] = useState<string>("")
+    const [doctorProfileId, setDoctorProfileId] = useState<string>("")
     const [bioData, setBioData] = useState<BioDataFormProps>(initialBioData)
     const [profileData, setProfileData] = useState<ProfileFormProps>(initialProfileData)
     const [contactData, setContactData] = useState<ContactInfoFormProps>(initialContactData)
     const [educationData, setEducationData] = useState<EducationFormProps>(initialEducationData)
     const [practiceData, setPracticeData] = useState<PracticeFormProps>(initialPracticeData)
     const [additionalData, setAdditionalData] = useState<AdditionalFormProps>(initialAdditionalData)
-
+    const [saveDbData, setSaveDbData] = useState<any>([])
     const contextValues = {
         truckingNumber,
         setTruckingNumber,
         doctorProfileId,
         setDoctorProfileId,
+        
         bioData,
-        setBioData,
         profileData,
-        setProfileData,
         contactData,
-        setContactData,
         educationData,
-        setEducationData,
         practiceData,
-        setPracticeData,
         additionalData,
+        saveDbData,
+        setSaveDbData,
+        setBioData,
+        setProfileData,
+        setContactData,
+        setEducationData,
+        setPracticeData,
         setAdditionalData,
     }
 

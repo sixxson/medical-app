@@ -8,7 +8,7 @@ import { DatePickerInput } from "../FormInput/DatePickerInput"
 import RadioInput from "../FormInput/RadioInput"
 import toast from "react-hot-toast"
 import { generateTrackingNumber } from "@/lib/generateTracking"
-import { createDoctorProfile } from "@/actions/onboarding"
+import { createDoctorProfile, updateDoctorProfile } from "@/actions/onboarding"
 import { useRouter } from "next/navigation"
 import { useOnBoardingContext } from "@/context/context"
 
@@ -18,23 +18,27 @@ export default function BioDataForm(
         title,
         description,
         userId,
+        formId,
         nextPage
     }: StepFormProps
 ) {
     // Get Context Data
-    const {
-        setTruckingNumber,
-        setDoctorProfileId
-    } = useOnBoardingContext()
-    const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
+    const { bioData, setBioData, setTruckingNumber, setDoctorProfileId, saveDbData, } = useOnBoardingContext()
     const [isLoading, setIsLoading] = React.useState(false)
-    const { bioData, setBioData } = useOnBoardingContext()
-    const initialDob = bioData.dob
+    const genderOptions = [{ label: "Male", value: "male" }, { label: "Female", value: "female" }]
+    const initialDob = bioData.dob || saveDbData.dob
+    const router = useRouter()
     const [dob, setDOB] = React.useState<Date>(initialDob)
     const { register, handleSubmit, formState: { errors } } = useForm<BioDataFormProps>({
-        defaultValues: bioData
+        defaultValues: {
+            firstName: bioData.firstName || saveDbData.firstName,
+            lastName: bioData.lastName || saveDbData.lastName,
+            middleName: bioData.middleName || saveDbData.middleName,
+            gender: bioData.gender || saveDbData.gender,
+            dob: bioData.dob || saveDbData.dob,
+            page: bioData.page || saveDbData.page,
+        }
     })
-    const router = useRouter()
 
     async function onSubmit(data: BioDataFormProps) {
         setIsLoading(true)
@@ -49,21 +53,37 @@ export default function BioDataForm(
         data.page = page
         console.log(data);
         try {
-            //save data to database
-            const res = await createDoctorProfile(data)
-            setIsLoading(false)
-            // save the data to context api - ToDo
-            setBioData(data)
-            if (res.status === 201) {
-                toast.success('Doctor Profile Created Successfully')
-                setTruckingNumber(res.data?.trackingNumber ?? "")
-                setDoctorProfileId(res.data?.id ?? "")
-                router.push(`/onboarding/${userId}?page=${nextPage}`)
-                console.log(res.data);
-                //Route to Next Form
-            } else {
+            if (formId) {
+                //save data to database
                 setIsLoading(false)
-                throw new Error('Something went wrong')
+                const res = await updateDoctorProfile(formId, data)
+                setBioData(data)
+                // save the data to context api - ToDo
+                if (res?.status === 201) {
+                    toast.success('Bio Data Updated Successfully')
+                    router.push(`/onboarding/${userId}?page=${nextPage}`)
+                    console.log(res.data);
+                } else {
+                    setIsLoading(false)
+                    throw new Error('Something went wrong')
+                }
+            } else {
+                //save data to database
+                const res = await createDoctorProfile(data)
+                setIsLoading(false)
+                // save the data to context api - ToDo
+                setBioData(data)
+                if (res.status === 201) {
+                    toast.success('Doctor Profile Created Successfully')
+                    setTruckingNumber(res.data?.trackingNumber ?? "")
+                    setDoctorProfileId(res.data?.id ?? "")
+                    router.push(`/onboarding/${userId}?page=${nextPage}`)
+                    console.log(res.data);
+                    //Route to Next Form
+                } else {
+                    setIsLoading(false)
+                    throw new Error('Something went wrong')
+                }
             }
         } catch (error) {
             setIsLoading(false)

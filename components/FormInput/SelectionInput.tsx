@@ -1,4 +1,7 @@
 "use client"
+
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+
 type SelectionInputProps = {
     label: string
     register: any
@@ -6,6 +9,7 @@ type SelectionInputProps = {
     name: string
     option: OptionInputProps[]
     multiple?: boolean
+    OptionTitle?: string
 }
 type OptionInputProps = {
     label: string
@@ -13,42 +17,44 @@ type OptionInputProps = {
 }
 
 export default function SelectionInput({
+    OptionTitle = "Select an option",
     label,
     name,
     register,
-    className="sm:col-span-2",
-    option=[],
+    className = "sm:col-span-2",
+    option = [],
     multiple = false,
 
 }: SelectionInputProps
 ) {
     return (
         <div className={className}>
-            <label 
-            htmlFor={name} 
-            className="block text-sm font-semibold leading-6 text-gray-900 dark:text-slate-50 mb-2"
+            <label
+                htmlFor={name}
+                className="block text-sm font-semibold leading-6 text-gray-900 dark:text-slate-50 mb-2"
             >
                 {label}
             </label>
             <div className="mt-2">
-                <select 
+                <Select
                     {...register(`${name}`)}
                     id={name}
                     name={name}
                     multiple={multiple}
-                    className="block w-full rounded-md border-0 py-2 text-gray-900 dark:text-slate-50 dark:bg-slate-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm
-                    sm:leading-6"
-
                 >
-                    {option.map((option,i:number) => {
-                        return (
-                            <option key={i} value={option.value} >
-                                {option.label}
-                            </option>
-                        )
-                    })}
-                </select>
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder={OptionTitle} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {option.map((option, i: number) => {
+                            return (
+                                <SelectItem key={i} value={option.value}>
+                                    {option.label}
+                                </SelectItem>
+                            )
+                        })}
+                    </SelectContent>
+                </Select>
             </div>
         </div>
     )

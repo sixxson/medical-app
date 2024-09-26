@@ -2,6 +2,8 @@ import React from "react";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import TransitionText from "./TransitionText";
 import { CommandMenu } from "../command-menu";
+import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   const TEXTS = [
@@ -140,9 +142,9 @@ export default Hero;
 const SingleImage = ({ href, imgSrc }: { href: string, imgSrc: string }) => {
   return (
     <>
-      <a href={href} className="flex w-full items-center justify-center">
-        <img src={imgSrc} alt="brand image" className="h-10 w-full" />
-      </a>
+      <Link href={href} className="flex w-full items-center justify-center">
+        <Image src={imgSrc} alt="brand image" className="h-10 w-full" />
+      </Link>
     </>
   );
 };

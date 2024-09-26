@@ -20,16 +20,22 @@ export default function ProfileInfoForm({
     userId,
     nextPage
 }: StepFormProps) {
+    const router = useRouter()
     const [isLoading, setIsLoading] = React.useState(false)
-    const {profileData, setProfileData} = useOnBoardingContext()
-    const initialExpiryDate = profileData.medicalLicenseExpiration
-    const initialProfileImage = profileData.profilePicture
+    const { profileData, setProfileData, saveDbData} = useOnBoardingContext()
+    const initialExpiryDate = profileData.medicalLicenseExpiration || saveDbData.medicalLicenseExpiration
+    const initialProfileImage = profileData.profilePicture || saveDbData.profilePicture
     const [expiry, setExpiry] = React.useState<Date>(initialExpiryDate)
     const [profileImage, setProfileImage] = React.useState(initialProfileImage)
-    const router = useRouter()
-    const { truckingNumber, doctorProfileId, } = useOnBoardingContext()
     const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormProps>({
-        defaultValues: profileData
+        defaultValues: {
+            profilePicture: profileData.profilePicture || saveDbData.profilePicture,
+            bio: profileData.bio || saveDbData.bio,
+            page: profileData.page || saveDbData.page,
+            medicalLicense: profileData.medicalLicense || saveDbData.medicalLicense,
+            medicalLicenseExpiration: profileData.medicalLicenseExpiration || saveDbData.medicalLicenseExpiration,
+            yearsOfExperience: profileData.yearsOfExperience || saveDbData.yearsOfExperience,
+        }
     })
 
     async function onSubmit(data: ProfileFormProps) {
@@ -46,9 +52,10 @@ export default function ProfileInfoForm({
         console.log(data);
         try {
             //save data to database
+            setIsLoading(false)
             const res = await updateDoctorProfile(formId, data)
-            // save the data to context api - ToDo
             setProfileData(data)
+            // save the data to context api - ToDo
             if (res?.status === 201) {
                 setIsLoading(false)
                 toast.success('Profile Info Updated Successfully')
@@ -65,8 +72,6 @@ export default function ProfileInfoForm({
     return (
         <div className="w-full">
             <div className=" text-center border border-gray-200 pb-4">
-                <p>truckingNumber:{truckingNumber}</p>
-                <p>doctorProfile:{doctorProfileId}</p>
                 <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl dark:text-gray-700">
                     {title}
                 </h2>

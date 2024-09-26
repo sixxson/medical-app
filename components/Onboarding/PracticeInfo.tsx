@@ -8,6 +8,7 @@ import ShalSelectionInput from '../FormInput/ShadSelectionInput'
 import { useRouter } from 'next/navigation'
 import { updateDoctorProfile } from '@/actions/onboarding'
 import toast from 'react-hot-toast'
+import { useOnBoardingContext } from '@/context/context'
 
 export default function PracticeInfo({
   page,
@@ -18,32 +19,55 @@ export default function PracticeInfo({
   nextPage
 }: StepFormProps) {
   const [isLoading, setIsLoading] = React.useState(false)
-  const insuranceOption = [{ label: "Choose your Option", value: "none" }, { label: "Yes", value: "yes" }, { label: "No", value: "no" }]
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<PracticeFormProps>()
-  const [services, setServices] = React.useState([])
-  const [languages, setLanguages] = React.useState([])
-  const [insuranceAccepted, setInsuranceAccepted] = React.useState('')
   const router = useRouter()
+  const insuranceOption = [{ label: "Choose your Option", value: "none" }, { label: "Yes", value: "yes" }, { label: "No", value: "no" }]
+  const { practiceData, setPracticeData, saveDbData } = useOnBoardingContext()
+  const initialservicesOffered = practiceData.servicesOffered || saveDbData.servicesOffered
+  const initialInsuranceAccepted = practiceData.insuranceAccepted || saveDbData.insuranceAccepted
+  const initialLanguages = practiceData.languageSpoken || saveDbData.languageSpoken
+  const [services, setServices] = React.useState(initialservicesOffered)
+  const [languages, setLanguages] = React.useState(initialLanguages)
+  const [insuranceAccepted, setInsuranceAccepted] = React.useState(initialInsuranceAccepted)
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<PracticeFormProps>({
+    defaultValues: {
+      hospitalName: practiceData.hospitalName || saveDbData.hospitalName,
+      hospitalAddress: practiceData.hospitalAddress || saveDbData.hospitalAddress,
+      hospitalContact: practiceData.hospitalContact || saveDbData.hospitalContact,
+      hospitalEmail: practiceData.hospitalEmail || saveDbData.hospitalEmail,
+      hospitalWebsite: practiceData.hospitalWebsite || saveDbData.hospitalWebsite,
+      hospitalHoursOfOperation: practiceData.hospitalHoursOfOperation || saveDbData.hospitalHoursOfOperation,
+      insuranceAccepted: practiceData.insuranceAccepted || saveDbData.insuranceAccepted,
+      servicesOffered: practiceData.servicesOffered || saveDbData.servicesOffered,
+      languageSpoken: practiceData.languageSpoken || saveDbData.languageSpoken,
+      page: practiceData.page || saveDbData.page,
+    }
+  })
 
   async function onSubmit(data: PracticeFormProps) {
     setIsLoading(true)
     console.log(data);
     data.servicesOffered = services
+    data.languageSpoken = languages
+    data.insuranceAccepted = insuranceAccepted
     try {
-        const res = await updateDoctorProfile(formId, data)
-        if (res?.status === 201) {
-            setIsLoading(false)
-            toast.success('Practice Info Updated Successfully')
-            router.push(`/onboarding/${userId}?page=${nextPage}`)
-            console.log(res.data);
-        } else {
-            setIsLoading(false)
-            throw new Error('Something went wrong')
-        }
-    } catch (error) {
+      //save data to database
+      setIsLoading(false)
+      const res = await updateDoctorProfile(formId, data)
+      setPracticeData(data)
+      // save the data to context api - ToDo
+      if (res?.status === 201) {
         setIsLoading(false)
+        toast.success('Practice Info Updated Successfully')
+        router.push(`/onboarding/${userId}?page=${nextPage}`)
+        console.log(res.data);
+      } else {
+        setIsLoading(false)
+        throw new Error('Something went wrong')
+      }
+    } catch (error) {
+      setIsLoading(false)
     }
-}
+  }
 
   return (
     <div className="w-full">

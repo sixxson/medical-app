@@ -10,6 +10,7 @@ import MultipleImageInput, { File } from '../FormInput/MultipleFileInput'
 import { useRouter } from 'next/navigation';
 import { updateDoctorProfile } from '@/actions/onboarding';
 import toast from 'react-hot-toast';
+import { useOnBoardingContext } from '@/context/context';
 
 export default function EducationInfo({
   page,
@@ -19,11 +20,23 @@ export default function EducationInfo({
   userId,
   nextPage }: StepFormProps) {
 
-  const [isLoading, setIsLoading] = React.useState(false)
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<EducationFormProps>()
-  const [otherSpecialties, setOtherSpecialties] = React.useState([])
   const router = useRouter()
-  const [docs, setDocs] = React.useState<File[]>([])
+  const [isLoading, setIsLoading] = React.useState(false)
+  const { educationData, setEducationData, saveDbData } = useOnBoardingContext()
+  const initialSpecialties = educationData.otherSpecialties || saveDbData.otherSpecialties
+  const initialDocs = educationData.boardCertificates || saveDbData.boardCertificates
+  const [otherSpecialties, setOtherSpecialties] = React.useState(initialSpecialties)
+  const [docs, setDocs] = React.useState<File[]>(initialDocs)
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<EducationFormProps>({
+    defaultValues: {
+      medicalSchool: educationData.medicalSchool || saveDbData.medicalSchool,
+      graduationYear: educationData.graduationYear || saveDbData.graduationYear,
+      primarySpecialization: educationData.primarySpecialization || saveDbData.primarySpecialization,
+      boardCertificates: educationData.boardCertificates || saveDbData.boardCertificates,
+      otherSpecialties: educationData.otherSpecialties || saveDbData.otherSpecialties,
+      page: educationData.page || saveDbData.page,
+    }
+  })
 
   async function onSubmit(data: EducationFormProps) {
     setIsLoading(true)
@@ -31,7 +44,11 @@ export default function EducationInfo({
     data.otherSpecialties = otherSpecialties
     data.boardCertificates = docs.map((doc) => doc.url)
     try {
+      //save data to database
+      setIsLoading(false)
       const res = await updateDoctorProfile(formId, data);
+      setEducationData(data)
+      // save the data to context api - ToDo
       if (res?.status === 201) {
         setIsLoading(false)
         toast.success('Education Info Updated Successfully')

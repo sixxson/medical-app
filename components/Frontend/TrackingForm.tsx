@@ -18,21 +18,14 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import SubmitButton from "../FormInput/SubmitButton";
-import { UserRole } from "@prisma/client";
 import { Input } from "../ui/input";
 import { getApplicationByTracking } from "@/actions/onboarding";
+import { useOnBoardingContext } from "@/context/context";
+import { set } from "date-fns";
 
-export default function VerifyTokenForm({
-    userToken,
-    id,
-    role
-}: {
-    userToken: number | undefined;
-    id: string;
-    role: UserRole | undefined
-}
-) {
+export default function TrackingForm() {
     const [loading, setLoading] = useState(false);
+    const { saveDbData, setSaveDbData,setTruckingNumber, setDoctorProfileId} = useOnBoardingContext();
     const [showNotification, setShowNotification] = useState(false);
     const router = useRouter();
     const FormSchema = z.object({
@@ -44,7 +37,6 @@ export default function VerifyTokenForm({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             trackingNumber: "",
-
         },
     })
 
@@ -54,6 +46,8 @@ export default function VerifyTokenForm({
         try {
             //Make Request
             const res = await getApplicationByTracking(data.trackingNumber);
+            // Save this to context Api
+            setSaveDbData(res?.data);
             if (res?.status === 404) {
                 setShowNotification(true);
                 setLoading(false);
@@ -63,7 +57,11 @@ export default function VerifyTokenForm({
                 // setUserId(res.data?.userId!);
                 // setPage(res.data?.page!);
                 // setTrackingSuccess(true);
+                console.log(res.data?.page);
+                setTruckingNumber(data.trackingNumber);
+                setDoctorProfileId(res.data?.id ?? "");
                 router.push(`/onboarding/${res.data?.userId}?page=${res.data?.page}`);
+            
                 setLoading(false);
             } else {
                 throw new Error("Something went wrong");
