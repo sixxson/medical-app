@@ -66,51 +66,50 @@ model User {
 }
 
 model DoctorProfile {
-  id             String @id @default(auto()) @map("_id") @db.ObjectId
-  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId         String @unique @db.ObjectId
-  trackingNumber String @unique
-//bio-data
-  firstName  String
-  lastName   String
-  middleName String?
-  dob        DateTime
-  gender     String
-//contact
-  email   String?
-  phone   String?
-  country String?
-  city    String?
-  state   String?
-//profile
+  id                       String    @id @default(auto()) @map("_id") @db.ObjectId
+  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId                   String    @unique @db.ObjectId
+  trackingNumber           String    @unique
+  //bio-data
+  firstName                String
+  lastName                 String
+  middleName               String?
+  dob                      DateTime
+  gender                   String
+  //contact
+  email                    String?
+  phone                    String?
+  country                  String?
+  city                     String?
+  state                    String?
+  //profile
   bio                      String?
   profilePicture           String?
   medicalLicense           String?
   medicalLicenseExpiration DateTime?
   yearsOfExperience        Int?
-//education
+  //education
   medicalSchool            String?
   graduationYear           String?
   primarySpecialization    String?
   otherSpecialties         String[]
   boardCertificates        String[]
-//practice
+  //practice
   hospitalName             String?
   hospitalAddress          String?
   hospitalContact          String?
   hospitalEmail            String?
   hospitalWebsite          String?
-  hospitalHoursOfOperation Int?
+  hospitalHoursOfOperation String?
   insuranceAccepted        String?
   servicesOffered          String[]
   languageSpoken           String[]
-//additional
+
+  //additional
   educationHistory         String?
   research                 String?
   accomplishments          String?
   additionDocs             String[]
-//availability
-
   page                     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

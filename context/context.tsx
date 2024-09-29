@@ -1,6 +1,5 @@
 "use client"
 import { AdditionalFormProps, BioDataFormProps, ContactInfoFormProps, EducationFormProps, PracticeFormProps, ProfileFormProps } from "@/types/types";
-import { DoctorProfile } from "@prisma/client";
 import { createContext, ReactNode, useContext, useState } from "react";
 // context => useState to golobal Level
 
@@ -83,7 +82,7 @@ const initialPracticeData = {
     hospitalContact: "",
     hospitalEmail: "",
     hospitalWebsite: "",
-    hospitalHoursOfOperation: 0,
+    hospitalHoursOfOperation: "",
     insuranceAccepted: "",
     servicesOffered: [],
     languageSpoken: [],

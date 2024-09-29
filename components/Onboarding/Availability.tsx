@@ -43,7 +43,7 @@ export default function Availability({
             if (res?.status === 201) {
                 setIsLoading(false)
                 toast.success('Profile Updated Successfully')
-                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                router.push(`/login`)
                 console.log(res.data);
             } else {
                 setIsLoading(false)

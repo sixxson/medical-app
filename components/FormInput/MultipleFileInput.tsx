@@ -36,7 +36,7 @@ export default function MultipleFileInput(
             <div className="flex justify-between items-center mb-4">
                 <label
                     htmlFor="course-image"
-                    className="block text-sm font-medium leading-6 text-gray-700 dark:text-slate-700 mb-2">
+                    className="block text-sm font-medium leading-6 mb-2">
                     {label}
                 </label>
                 {files && (
@@ -46,7 +46,7 @@ export default function MultipleFileInput(
                         className='flex space-x-2 bg-slate-900 rounded-md shadow
                         text-slate-50 py-2 px-4'>
                         <Pencil size={16} />
-                        <span>Change Image</span>
+                        <span>Change file</span>
                     </button>
                 )}
             </div>
@@ -57,12 +57,12 @@ export default function MultipleFileInput(
                             <Button
                                 type="button"
                                 onClick={() => handleImageRemove(i)}
-                                className="absolute -top-4 -right-2 rounded-full p-1 text-red-700">
+                                className="absolute -top-4 -right-8 rounded-full text-red-700 ">
                                 <XCircle size={24} />
                             </Button>
                             <div className="py-2 px-6 border border-slate-200 text-gray-800 bg-white 
-                            rounded-md dark:text-slate-50 dark:bg-slate-800 overflow-auto flex">
-                                <File size={24} className="text-gray-800 dark:text-slate-50 mr-2" />
+                            rounded-md overflow-auto flex">
+                                <File size={24} className="  mr-2" />
                                 <div className="flex flex-col">
                                     <p>{file.title}</p>
                                     <span className="text-xs">
@@ -75,7 +75,7 @@ export default function MultipleFileInput(
                 </div>
             ) : (
                 <UploadDropzone
-                    className="text-base dark:text-gray-800 ut-uploading:ut-button:bg-blue-600 "
+                    className="text-base dark:text-gray-800 "
                     endpoint={endpoint}
                     onClientUploadComplete={(res) => {
                         console.log(res);

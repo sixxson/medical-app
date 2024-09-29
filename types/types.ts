@@ -70,7 +70,7 @@ export type PracticeFormProps = {
   hospitalContact: string;
   hospitalEmail: string;
   hospitalWebsite: string;
-  hospitalHoursOfOperation: number;
+  hospitalHoursOfOperation: string;
   insuranceAccepted: string;
   servicesOffered: any;
   languageSpoken: string[];

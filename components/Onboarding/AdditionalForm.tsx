@@ -6,7 +6,7 @@ import { AdditionalFormProps, StepFormProps } from "@/types/types"
 import toast from "react-hot-toast"
 import MultipleFileInput, { File } from "../FormInput/MultipleFileInput"
 import TextAreaInput from "../FormInput/TextAreaInput"
-import { updateDoctorProfile } from "@/actions/onboarding"
+import { compeleteProfile, updateDoctorProfile } from "@/actions/onboarding"
 import { useRouter } from "next/navigation"
 import { useOnBoardingContext } from "@/context/context"
 
@@ -17,20 +17,21 @@ export default function AdditionalForm(
         description,
         formId,
         userId,
-        nextPage
     }: StepFormProps) {
-        const router = useRouter()
+    const router = useRouter()
     const [isLoading, setIsLoading] = React.useState(false)
     const { additionalData, setAdditionalData, saveDbData } = useOnBoardingContext()
     const initialAdditionalData = additionalData.additionDocs || saveDbData.additionDocs
     const [additionalDocs, setAdditionalDocs] = React.useState<File[]>(initialAdditionalData)
+    console.log(saveDbData);
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm<AdditionalFormProps>({
         defaultValues: {
             educationHistory: additionalData.educationHistory || saveDbData.educationHistory,
-            research: additionalData.educationHistory || saveDbData.educationHistory,
-            accomplishments: additionalData.educationHistory || saveDbData.educationHistory,
+            research: additionalData.research || saveDbData.research,
+            accomplishments: additionalData.accomplishments || saveDbData.accomplishments,
             additionDocs: additionalData.additionDocs || saveDbData.additionDocs,
-            page: additionalData.educationHistory || saveDbData.educationHistory,
+            page: additionalData.page || saveDbData.page,
         }
     })
 
@@ -41,16 +42,18 @@ export default function AdditionalForm(
         try {
             //save data to database
             setIsLoading(false)
-            const res = await updateDoctorProfile(formId, data)
+            const res = await compeleteProfile(formId, data)
             setAdditionalData(data)
             if (res?.status === 201) {
                 setIsLoading(false)
+                setAdditionalData(data)
+
                 //extract the profile from data from the update profile 
                 //Send a wellcome Email
 
                 toast.success('Profile Completed Successfully')
                 //Route them to the login page
-                router.push(`/onboarding/${userId}?page=${nextPage}`)
+                router.push(`/login`)
                 console.log(res.data);
             } else {
                 setIsLoading(false)
@@ -63,7 +66,7 @@ export default function AdditionalForm(
 
     return (
         <div className="w-full">
-            <div className=" text-center border border-gray-200 pb-4 dark:text-slate-900 ">
+            <div className=" text-center border border-gray-200 pb-4 ">
                 <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl">
                     {title}
                 </h2>
@@ -72,7 +75,7 @@ export default function AdditionalForm(
                 </p>
             </div>
             <form
-                className="mx-auto max-w-3xl dark:text-slate-900 text-base py-4 px-4 "
+                className="mx-auto max-w-3xl text-base py-4 px-4 "
                 onSubmit={handleSubmit(onSubmit)}
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">
@@ -110,7 +113,7 @@ export default function AdditionalForm(
                 </div>
                 <div className="mt-8 flex justify-center items-center">
                     <SubmitButton
-                        title='Save and Continue'
+                        title='Complete Profile'
                         isLoading={isLoading}
                         loadingTitle='Saving please wait ...'
                     />

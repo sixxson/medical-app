@@ -48,9 +48,8 @@ const { fullName, phone, email, password, role, plan } = formData;
         const firstName = newUser.name.split(" ")[0];
         const linkText = "Verify your Account ";
         const message =
-            `Thank you for registering with Gecko. 
-            To complete your registration and verify your email address, 
-            please enter the following 6-digit verification code on our website :`;
+            `Thank you for registering with Online Doctors. To Compelete your registration and verify your email address,
+            please enter the following 6-digit verification code on our website:`;
         const sendMail = await resend.emails.send({
             from: 'Medical App  <info@sixcom.io.vn>',
             to: email,

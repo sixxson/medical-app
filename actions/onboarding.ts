@@ -1,4 +1,6 @@
 "use server";
+import EmailTemplate from "@/components/Emails/email-template";
+import WelcomeEmail from "@/components/Emails/wellcome-email";
 import { prismaClient } from "@/lib/db";
 import { Resend } from "resend";
 
@@ -40,7 +42,7 @@ export async function updateDoctorProfile(id: string | undefined, data: any) {
             const updateDoctorProfile = await prismaClient.doctorProfile.update({
                 where: {
                     id
-                },  
+                },
                 data
             })
             return {
@@ -91,7 +93,7 @@ export async function getApplicationByTracking(trackingNumber: string) {
                     trackingNumber,
                 },
             });
-            if(!existingProfile) {
+            if (!existingProfile) {
                 return {
                     data: null,
                     status: 404,
@@ -101,6 +103,61 @@ export async function getApplicationByTracking(trackingNumber: string) {
             return {
                 data: existingProfile,
                 status: 200,
+                error: null,
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Something went wrong",
+            };
+        }
+    }
+}
+
+export async function compeleteProfile(id: string | undefined, data: any) {
+    const resend = new Resend(process.env.SENDGRID_API_KEY);
+
+    if (id) {
+        try {
+
+            const updateDoctorProfile = await prismaClient.doctorProfile.update({
+                where: {
+                    id
+                },
+                data
+            })
+
+            const existingProfile = await prismaClient.doctorProfile.findUnique({
+                where: {
+                    id,
+                },
+            });
+            if (!existingProfile) {
+                return {
+                    data: null,
+                    status: 404,
+                    error: "Profile not found",
+                }
+            }
+
+            //send a welcome email
+            const firstName = existingProfile.firstName;
+            const email = existingProfile.email as string;
+            const previewText = "Welcome to Online Doctors";
+            const message =
+                `Thank you for joining Online Doctors.
+                We are so grateful to have you onboard.`;
+            const sendMail = await resend.emails.send({
+                from: 'Medical App  <info@sixcom.io.vn>',
+                to: email,
+                subject: "Welcome to Online Doctors",
+                react: WelcomeEmail({ firstName, previewText, message }),
+            });
+            return {
+                data: updateDoctorProfile,
+                status: 201,
                 error: null,
             }
         } catch (error) {

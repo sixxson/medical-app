@@ -64,7 +64,7 @@ export default function EducationInfo({
   }
   return (
     <div className="w-full">
-      <div className=" text-center border border-gray-200 pb-4 dark:text-slate-900 ">
+      <div className=" text-center border border-gray-200 pb-4 ">
         <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl">
           {title}
         </h2>
@@ -73,7 +73,7 @@ export default function EducationInfo({
         </p>
       </div>
       <form
-        className="mx-auto max-w-3xl dark:text-gray-800 text-base py-4 px-4 "
+        className="mx-auto max-w-3xl text-base py-4 px-4 "
         onSubmit={handleSubmit(onSubmit)}
         method="POST">
         <div className="grid gap-4 grid-cols-2">

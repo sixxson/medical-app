@@ -53,7 +53,7 @@ export default function ProfileInfoForm({
         try {
             //save data to database
             setIsLoading(false)
-            const res = await updateDoctorProfile(formId, data)
+            const res = await updateDoctorProfile(`${formId?formId:saveDbData.id}`, data)
             setProfileData(data)
             // save the data to context api - ToDo
             if (res?.status === 201) {
@@ -72,7 +72,7 @@ export default function ProfileInfoForm({
     return (
         <div className="w-full">
             <div className=" text-center border border-gray-200 pb-4">
-                <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl dark:text-gray-700">
+                <h2 className="text-4xl font-semibold scroll-m-20 tracking-tight lg:text-5xl">
                     {title}
                 </h2>
                 <p className="text-balance text-muted-foreground">
@@ -80,7 +80,7 @@ export default function ProfileInfoForm({
                 </p>
             </div>
             <form
-                className="mx-auto max-w-3xl py-4 px-4 dark:text-gray-800 text-base"
+                className="mx-auto max-w-3xl py-4 px-4 text-base"
                 onSubmit={handleSubmit(onSubmit)}
                 method="POST">
                 <div className="grid gap-4 grid-cols-2">

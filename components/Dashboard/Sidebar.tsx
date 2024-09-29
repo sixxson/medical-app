@@ -1,15 +1,11 @@
 "use client"
 import {
+    AlarmClock,
     Bell,
-    CircleUser,
     Home,
-    LineChart,
-    Menu,
-    Package,
+    Mail,
     Package2,
-    Search,
     Settings,
-    ShoppingCart,
     Users,
 } from "lucide-react"
 import {
@@ -22,46 +18,70 @@ import {
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Session } from "next-auth";
 
-export default function Sidebar() {
+export default function Sidebar({session}:{session:Session}) {
+    const {user} = session
+    const role = user?.role
     const pathname = usePathname()
-    const sideBarLinks = [
-        {
-            title: "Dashboard",
-            icon: <Home className="h-4 w-4" />,
-            path: "/dashboard",
-        },
-        {
-            title: "Orders",
-            icon: <ShoppingCart className="h-4 w-4" />,
-            path: "/dashboard/orders",
-            badge: 6,
-        },
-        {
-            title: "Products",
-            icon: <Package className="h-4 w-4" />,
-            path: "/dashboard/products",
-        },
-        {
-            title: "Customers",
-            icon: <Users className="h-4 w-4" />,
-            path: "/dashboard/customers",
-        },
-        {
-            title: "Analytics",
-            icon: <LineChart className="h-4 w-4" />,
-            path: "/dashboard/analytics",
-        },
-        {
-            title: "Settings",
-            icon: <Settings className="h-4 w-4" />,
-            path: "/dashboard/settings",
-        }
-    ]
-
+    const roles = {
+        USER: [
+            {title: "Dashboard", path:"/dashboard", icon: Home},
+            { title: "My Appointments", path: "/dashboard/user/appointments", icon: AlarmClock },
+            { title: "Settings", path: "/dashboard/user/settings", icon: Settings },
+        ],
+        ADMIN:[
+            { title: "Dashboard", path: "/dashboard", icon: Home },
+            { title: "Doctors", path: "/dashboard/doctors", icon: Users },
+            { title: "Patients", path: "/dashboard/patients", icon: Users },
+            { title: "Appointments", path: "/dashboard/appointments", icon: AlarmClock },
+            { title: "Settings", path: "/dashboard/settings", icon: Settings },
+        ],
+        DOCTOR:[
+            { title: "Dashboard", path: "/dashboard", icon: Home },
+            { title: "Patients", path: "/dashboard/patients", icon: Users },
+            { title: "Appointments", path: "/dashboard/appointments", icon: AlarmClock },
+            { title: "Tasks", path: "/dashboard/doctor/tasks", icon: Users },
+            { title: "Inbox", path: "/dashboard/doctor/inbox", icon: Mail },
+            { title: "Settings", path: "/dashboard/doctor/settings", icon: Settings },
+        ]
+    } 
+    let sideBarLinks = roles[role] || []
+    // const sideBarLinks = [
+    //     {
+    //         title: "Dashboard",
+    //         icon: <Home className="h-4 w-4" />,
+    //         path: "/dashboard",
+    //     },
+    //     {
+    //         title: "Orders",
+    //         icon: <ShoppingCart className="h-4 w-4" />,
+    //         path: "/dashboard/orders",
+    //         badge: 6,
+    //     },
+    //     {
+    //         title: "Products",
+    //         icon: <Package className="h-4 w-4" />,
+    //         path: "/dashboard/products",
+    //     },
+    //     {
+    //         title: "Customers",
+    //         icon: <Users className="h-4 w-4" />,
+    //         path: "/dashboard/customers",
+    //     },
+    //     {
+    //         title: "Analytics",
+    //         icon: <LineChart className="h-4 w-4" />,
+    //         path: "/dashboard/analytics",
+    //     },
+    //     {
+    //         title: "Settings",
+    //         icon: <Settings className="h-4 w-4" />,
+    //         path: "/dashboard/settings",
+    //     }
+    // ]
     return (
         <div className="hidden border-r bg-muted/40 md:block">
             <div className="flex h-full max-h-screen flex-col gap-2">
@@ -84,9 +104,8 @@ export default function Sidebar() {
                                     className={cn("flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                                     ,pathname === item.path ? "bg-muted text-primary " : ""
                                     )}>
-                                        {item.icon}
+                                        {React.createElement(item.icon, { className: "h-4 w-4" })}
                                         <span>{item.title}</span>
-                                        {item.badge && <Badge>{item.badge}</Badge>}
                                     </Link>
                                 )
                             })
