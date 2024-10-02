@@ -106,11 +106,30 @@ model DoctorProfile {
   languageSpoken           String[]
 
   //additional
-  educationHistory         String?
-  research                 String?
-  accomplishments          String?
-  additionDocs             String[]
-  page                     String
+  educationHistory String?
+  research         String?
+  accomplishments  String?
+  additionDocs     String[]
+  page             String
+
+  availability Availability?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Availability {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  doctorProfile   DoctorProfile @relation(fields: [doctorProfileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  doctorProfileId String        @unique @db.ObjectId
+  monday          String[]
+  tuesday         String[]
+  wednesday       String[]
+  thursday        String[]
+  friday          String[]
+  saturday        String[]
+  sunday          String[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

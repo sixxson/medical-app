@@ -17,7 +17,7 @@ export default async function Layout({ children } : { children: ReactNode }) {
             <Sidebar session={session} />
             <div className="flex flex-col">
                 <Navbar session={session} />
-                <div className='p-8'>
+                <div className=''>
                 {children}
                     </div>
                 </div>

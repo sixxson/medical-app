@@ -4,6 +4,8 @@ import WelcomeEmail from "@/components/Emails/wellcome-email";
 import { prismaClient } from "@/lib/db";
 import { Resend } from "resend";
 
+
+// Doctor Profile
 export async function createDoctorProfile(formData: any) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { dob, firstName, lastName, middleName, trackingNumber, userId, gender, page } = formData;
@@ -121,7 +123,6 @@ export async function compeleteProfile(id: string | undefined, data: any) {
 
     if (id) {
         try {
-
             const updateDoctorProfile = await prismaClient.doctorProfile.update({
                 where: {
                     id
@@ -166,6 +167,77 @@ export async function compeleteProfile(id: string | undefined, data: any) {
                 data: null,
                 status: 500,
                 error: "Something went wrong",
+            };
+        }
+    }
+}
+
+
+// Availability
+export async function getDoctorProfileById(userId: string | undefined) {
+    if (userId) {
+        try {
+            const profile = await prismaClient.doctorProfile.findUnique({
+                where: {
+                    userId
+                },
+                include: {
+                    availability: true,
+                }
+            })
+            return {
+                data: profile,
+                status: 201,
+                error: null,
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Profile was not updated",
+            };
+        }
+    }
+}
+
+export async function createAvailability(data: any) {
+    try {
+        const newAvaila = await prismaClient.availability.create({
+            data
+        });
+        console.log(newAvaila);
+        return newAvaila
+    } catch (error) {
+        console.log(error);
+        return {
+            data: null,
+            status: 500,
+            error: "Something went wrong",
+        };
+    }
+}
+
+export async function updateAvailabilityById(id: string | undefined, data: any) {
+    if (id) {
+        try {
+            const updateAvaila = await prismaClient.availability.update({
+                where: {
+                    id
+                },
+                data
+            })
+            return {
+                data: updateAvaila,
+                status: 201,
+                error: null,
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                data: null,
+                status: 500,
+                error: "Availability Something went wrong",
             };
         }
     }
