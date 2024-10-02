@@ -9,26 +9,28 @@ export default async function page() {
   const user = session?.user
   const role = user?.role
 
-   if(role === "USER"){
-        return (
-            <div>
-                <p>The User Role is {user?.role}</p>
-                <PatientsDashBoard />
-            </div>
-        )
-    }
-    if(role === "DOCTOR"){  
-        return (
-            <div>
-                <p>The User Role is {user?.role}</p>
-                <DoctorDashBoard />
-            </div>
-        )
-    }
+  if (role === "USER") {
+    return (
+      <div key="user">
+        <p>The User Role is {user?.role}</p>
+        <PatientsDashBoard />
+      </div>
+    )
+  }
+  if (role === "DOCTOR") {
+    return (
+      <div key="doctor">
+        <p>The User Role is {user?.role}</p>
+        <DoctorDashBoard />
+      </div>
+    )
+  }
   return (
-    <div>
+    <div key="default">
       <p>The User Role is {user?.role}</p>
       <Dashboard />
     </div>
   )
 }
+
+

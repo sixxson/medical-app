@@ -40,9 +40,9 @@ export default function Sidebar({session}:{session:Session}) {
             { title: "Settings", path: "/dashboard/settings", icon: Settings },
         ],
         DOCTOR:[
-            { title: "Dashboard", path: "/dashboard", icon: Home },
-            { title: "Patients", path: "/dashboard/patients", icon: Users },
-            { title: "Appointments", path: "/dashboard/appointments", icon: AlarmClock },
+            { title: "Dashboard", path: "/dashboard/doctor", icon: Home },
+            { title: "Patients", path: "/dashboard/doctor/patients", icon: Users },
+            { title: "Appointments", path: "/dashboard/doctor/appointments", icon: AlarmClock },
             { title: "Tasks", path: "/dashboard/doctor/tasks", icon: Users },
             { title: "Inbox", path: "/dashboard/doctor/inbox", icon: Mail },
             { title: "Settings", path: "/dashboard/doctor/settings", icon: Settings },
